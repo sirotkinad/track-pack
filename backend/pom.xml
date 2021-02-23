@@ -8,11 +8,11 @@
         <version>2.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>demo</artifactId>
+    <groupId>com.trackpack.app</groupId>
+    <artifactId>trackpack</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>track-pack</name>
+    <description>A web-application developed to help and facilitate tracing parcels.</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -83,11 +83,6 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>vue</artifactId>
-            <version>2.6.12</version>
         </dependency>
     </dependencies>
 
