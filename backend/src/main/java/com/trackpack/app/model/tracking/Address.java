@@ -1,13 +1,17 @@
 package com.trackpack.app.model.tracking;
 
 import lombok.Data;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 public class Address {
 
-    private UUID uuid = UUID.randomUUID();
+    @Id
+    @GeneratedValue
+    private UUID id;
     private String streetNr;
     private String streetNrSuffix;
     private String streetNrLast;

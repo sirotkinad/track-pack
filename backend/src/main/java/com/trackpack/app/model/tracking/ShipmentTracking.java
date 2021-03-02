@@ -1,6 +1,8 @@
 package com.trackpack.app.model.tracking;
 
 import lombok.Data;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -9,7 +11,9 @@ import java.util.UUID;
 @Data
 public class ShipmentTracking {
 
-    private UUID uuid = UUID.randomUUID();
+    @Id
+    @GeneratedValue
+    private UUID id;
     private String href;
     private String carrier;
     private String trackingCode;

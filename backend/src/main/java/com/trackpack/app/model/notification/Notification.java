@@ -2,6 +2,8 @@ package com.trackpack.app.model.notification;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,7 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Notification {
 
-    private UUID eventUuid = UUID.randomUUID();
+    @Id
+    @GeneratedValue
+    private UUID eventId;
     private LocalDateTime eventTime;
     private String eventType;
 

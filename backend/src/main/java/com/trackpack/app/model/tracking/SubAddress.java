@@ -1,12 +1,16 @@
 package com.trackpack.app.model.tracking;
 
 import lombok.Data;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Data
 public class SubAddress {
 
-    private UUID uuid = UUID.randomUUID();
+    @Id
+    @GeneratedValue
+    private UUID id;
     private String type;
     private String name;
     private String subUnitType;

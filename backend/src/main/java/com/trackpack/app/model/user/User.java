@@ -3,13 +3,17 @@ package com.trackpack.app.model.user;
 import com.trackpack.app.model.tracking.Address;
 import com.trackpack.app.model.tracking.ShipmentTracking;
 import lombok.Data;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 public class User {
 
-    private UUID uuid = UUID.randomUUID();
+    @Id
+    @GeneratedValue
+    private UUID id;
     private String firstName;
     private String lastName;
     private String email;
@@ -24,6 +28,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    
+
 }
 
