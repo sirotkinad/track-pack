@@ -1,16 +1,17 @@
-package com.trackpack.app.model.usermodel;
+package com.trackpack.app.model.user;
 
-import com.trackpack.app.model.trackingmodel.Address;
-import com.trackpack.app.model.trackingmodel.ShipmentTracking;
+import com.trackpack.app.model.tracking.Address;
+import com.trackpack.app.model.tracking.ShipmentTracking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 public class User {
 
-    private int id;
+    private final UUID uuid = UUID.randomUUID();
     private String firstName;
     private String lastName;
     private String email;
@@ -19,8 +20,7 @@ public class User {
     private ArrayList<ShipmentTracking> parcels;
 
 
-    public User(int id, String firstName, String lastName, String email, String password) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

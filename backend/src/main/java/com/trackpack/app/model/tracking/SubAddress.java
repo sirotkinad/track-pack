@@ -1,13 +1,14 @@
-package com.trackpack.app.model.trackingmodel;
+package com.trackpack.app.model.tracking;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 public class SubAddress {
 
-    private String id;
+    private final UUID uuid = UUID.randomUUID();
     private String type;
     private String name;
     private String subUnitType;
@@ -17,9 +18,8 @@ public class SubAddress {
     private String privateStreetName;
     private String privateStreetNumber;
 
-    public SubAddress(String id, String name, String subUnitType,
+    public SubAddress(String name, String subUnitType,
                       String subUnitNumber, String levelNumber, String buildingName) {
-        this.id = id;
         this.name = name;
         this.subUnitType = subUnitType;
         this.subUnitNumber = subUnitNumber;

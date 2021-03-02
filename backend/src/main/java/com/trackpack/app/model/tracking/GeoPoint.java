@@ -1,4 +1,4 @@
-package com.trackpack.app.model.trackingmodel;
+package com.trackpack.app.model.tracking;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

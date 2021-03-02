@@ -1,40 +1,37 @@
-package com.trackpack.app.model.trackingmodel;
+package com.trackpack.app.model.tracking;
 
-import com.trackpack.app.model.usermodel.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 @Data
 @AllArgsConstructor
 public class ShipmentTracking {
 
-    private String id;
+    private final UUID uuid = UUID.randomUUID();
     private String href;
     private String carrier;
     private String trackingCode;
     private String carrierTrackingUrl;
-    private LocalDateTime trackingDate;
+    private OffsetDateTime trackingDate;
     private String status;
-    private LocalDateTime statusChangeDate;
+    private OffsetDateTime statusChangeDate;
     private String statusChangeReason;
     private int weight;
-    private LocalDateTime estimatedDeliveryDate;
+    private OffsetDateTime estimatedDeliveryDate;
     private Address addressFrom;
     private Address addressTo;
     private ArrayList<CheckPoint> checkpoint;
-    private User user;
 
-    public ShipmentTracking(String id, String carrier, String trackingCode, LocalDateTime trackingDate,
-                            Address addressTo, User user) {
-        this.id = id;
+    public ShipmentTracking(String carrier, String trackingCode, OffsetDateTime trackingDate,
+                            Address addressTo) {
         this.carrier = carrier;
         this.trackingCode = trackingCode;
         this.trackingDate = trackingDate;
         this.addressTo = addressTo;
-        this.user = user;
     }
 
 }

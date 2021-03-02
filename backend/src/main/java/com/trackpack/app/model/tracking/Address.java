@@ -1,14 +1,15 @@
-package com.trackpack.app.model.trackingmodel;
+package com.trackpack.app.model.tracking;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 public class Address {
 
-    private String id;
+    private final UUID uuid = UUID.randomUUID();
     private String streetNr;
     private String streetNrSuffix;
     private String streetNrLast;
@@ -24,9 +25,8 @@ public class Address {
     private GeoLocation geographicLocation;
     private ArrayList<SubAddress> subAddress;
 
-    public Address(String id, String streetNr, String streetName, String postcode,
+    public Address(String streetNr, String streetName, String postcode,
                    String city, String stateOrProvince, String country) {
-        this.id = id;
         this.streetNr = streetNr;
         this.streetName = streetName;
         this.postcode = postcode;
