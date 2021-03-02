@@ -1,17 +1,21 @@
 package com.trackpack.app.model.tracking;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
 public class GeoLocation {
 
-    private final UUID uuid = UUID.randomUUID();
+    private UUID uuid = UUID.randomUUID();
     private String name;
     private String type;
-    private ArrayList<GeoPoint> geographicPoint;
+    private List<GeoPoint> geographicPoint;
+
+    public GeoLocation(String name, String type, List<GeoPoint> geographicPoint) {
+        this.name = name;
+        this.type = type;
+        this.geographicPoint = geographicPoint;
+    }
 
 }

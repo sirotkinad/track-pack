@@ -1,17 +1,15 @@
 package com.trackpack.app.model.tracking;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
 @Data
-@AllArgsConstructor
 public class ShipmentTracking {
 
-    private final UUID uuid = UUID.randomUUID();
+    private UUID uuid = UUID.randomUUID();
     private String href;
     private String carrier;
     private String trackingCode;
@@ -24,7 +22,7 @@ public class ShipmentTracking {
     private OffsetDateTime estimatedDeliveryDate;
     private Address addressFrom;
     private Address addressTo;
-    private ArrayList<CheckPoint> checkpoint;
+    private List<CheckPoint> checkpoint;
 
     public ShipmentTracking(String carrier, String trackingCode, OffsetDateTime trackingDate,
                             Address addressTo) {
