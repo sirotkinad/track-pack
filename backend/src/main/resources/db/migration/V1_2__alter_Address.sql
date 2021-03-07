@@ -1,0 +1,1 @@
+ALTER TABLE Address DROP COLUMN subaddress;

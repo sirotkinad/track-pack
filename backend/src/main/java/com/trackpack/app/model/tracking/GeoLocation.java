@@ -1,22 +1,31 @@
 package com.trackpack.app.model.tracking;
 
 import lombok.Data;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.List;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Entity
+@Table(name = "GeoLocation")
 @Data
+@NoArgsConstructor
 public class GeoLocation {
 
     @Id
     @GeneratedValue
     private UUID id;
-    private String name;
-    private String type;
-    private List<GeoPoint> geographicPoint;
 
-    public GeoLocation(String name, String type, List<GeoPoint> geographicPoint) {
+    @NotNull
+    private String name;
+
+    private String type;
+
+    @OneToOne
+    @JoinColumn(name = "geographicPoint", referencedColumnName = "id")
+    private GeoPoint geographicPoint;
+
+    public GeoLocation(String name, String type, GeoPoint geographicPoint) {
         this.name = name;
         this.type = type;
         this.geographicPoint = geographicPoint;
