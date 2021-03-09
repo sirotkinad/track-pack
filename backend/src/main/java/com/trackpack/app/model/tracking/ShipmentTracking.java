@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "shipmentTracking")
+@Table(name = "ShipmentTracking")
 @NoArgsConstructor
 @Data
 public class ShipmentTracking {

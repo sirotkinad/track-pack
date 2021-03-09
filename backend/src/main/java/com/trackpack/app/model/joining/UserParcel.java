@@ -6,6 +6,8 @@ import com.trackpack.app.model.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "UserParcel")
@@ -26,6 +28,9 @@ public class UserParcel {
     @JoinColumn(name = "parcelId")
     ShipmentTracking parcel;
 
-    //here will be additional fields
+    @NotNull
+    private OffsetDateTime addDate;
+
+    private boolean isFavourite = false;
 
 }

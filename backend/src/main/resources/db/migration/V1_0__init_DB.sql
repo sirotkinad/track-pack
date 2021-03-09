@@ -1,4 +1,4 @@
-CREATE TABLE Users
+CREATE TABLE IF NOT EXISTS Users
 (
     id        UUID PRIMARY KEY NOT NULL,
     firstName VARCHAR(30)      NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE Users
     password  VARCHAR(20)      NOT NULL
 );
 
-CREATE TABLE GeoPoint
+CREATE TABLE IF NOT EXISTS GeoPoint
 (
     id        UUID PRIMARY KEY NOT NULL,
     accuracy  VARCHAR(10),
@@ -15,7 +15,7 @@ CREATE TABLE GeoPoint
     longitude VARCHAR(15)      NOT NULL
 );
 
-CREATE TABLE GeoLocation
+CREATE TABLE IF NOT EXISTS GeoLocation
 (
     id              UUID PRIMARY KEY NOT NULL,
     name            VARCHAR(40)      NOT NULL,
@@ -23,22 +23,7 @@ CREATE TABLE GeoLocation
     geographicPoint UUID REFERENCES GeoPoint (id) ON DELETE RESTRICT
 );
 
-
-CREATE TABLE SubAddress
-(
-    id                  UUID PRIMARY KEY NOT NULL,
-    type                VARCHAR(40),
-    name                VARCHAR(40),
-    subUnitType         VARCHAR(40),
-    subUnitNumber       VARCHAR(10),
-    levelNumber         VARCHAR(10),
-    buildingName        VARCHAR(40),
-    privateStreetName   VARCHAR(40),
-    privateStreetNumber VARCHAR(10)
-);
-
-
-CREATE TABLE Address
+CREATE TABLE IF NOT EXISTS Address
 (
     id                 UUID PRIMARY KEY NOT NULL,
     streetNr           VARCHAR(10)      NOT NULL,
@@ -53,34 +38,47 @@ CREATE TABLE Address
     city               VARCHAR(40)      NOT NULL,
     stateOrProvince    VARCHAR(40)      NOT NULL,
     country            VARCHAR(40)      NOT NULL,
-    geographicLocation UUID REFERENCES GeoLocation (id) ON DELETE RESTRICT,
-    subAddress         UUID REFERENCES SubAddress (id) ON DELETE RESTRICT
+    geographicLocation UUID REFERENCES GeoLocation (id) ON DELETE RESTRICT
 );
 
-CREATE TABLE ShipmentTracking
+CREATE TABLE IF NOT EXISTS SubAddress
+(
+    id                  UUID PRIMARY KEY NOT NULL,
+    type                VARCHAR(40),
+    name                VARCHAR(40),
+    subUnitType         VARCHAR(40),
+    subUnitNumber       VARCHAR(10),
+    levelNumber         VARCHAR(10),
+    buildingName        VARCHAR(40),
+    privateStreetName   VARCHAR(40),
+    privateStreetNumber VARCHAR(10),
+    address UUID REFERENCES Address (id) ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS ShipmentTracking
 (
     id                    UUID PRIMARY KEY         NOT NULL,
     href                  VARCHAR(50),
     carrier               VARCHAR(50),
     trackingCode          VARCHAR(50)              NOT NULL,
     carrierTrackingUrl    VARCHAR(50),
-    trackingDate          TIMESTAMP WITH TIME ZONE NOT NULL,
+    trackingDate          TIMESTAMPTZ              NOT NULL,
     status                VARCHAR(50)              NOT NULL,
-    statusChangeDate      TIMESTAMP WITH TIME ZONE,
+    statusChangeDate      TIMESTAMPTZ,
     statusChangeReason    VARCHAR(50),
     weight                REAL,
-    estimatedDeliveryDate TIMESTAMP WITH TIME ZONE,
+    estimatedDeliveryDate TIMESTAMPTZ,
     addressFrom           UUID REFERENCES Address (id) ON DELETE RESTRICT,
     addressTo             UUID REFERENCES Address (id) ON DELETE RESTRICT
 );
 
 
-CREATE TABLE CheckPoint
+CREATE TABLE IF NOT EXISTS CheckPoint
 (
     id              UUID PRIMARY KEY         NOT NULL,
     status          VARCHAR(50)              NOT NULL,
     message         VARCHAR(50),
-    date            TIMESTAMP WITH TIME ZONE NOT NULL,
+    date            TIMESTAMPTZ              NOT NULL,
     checkPost       VARCHAR(50)              NOT NULL,
     city            VARCHAR(40)              NOT NULL,
     stateOrProvince VARCHAR(40),
@@ -88,14 +86,16 @@ CREATE TABLE CheckPoint
 );
 
 
-CREATE TABLE UserParcel
+CREATE TABLE IF NOT EXISTS UserParcel
 (
-    userId   UUID REFERENCES Users (id) ON DELETE RESTRICT,
-    parcelId UUID REFERENCES ShipmentTracking (id) ON DELETE RESTRICT,
+    userId      UUID REFERENCES Users (id) ON DELETE RESTRICT,
+    parcelId    UUID REFERENCES ShipmentTracking (id) ON DELETE RESTRICT,
+    addDate        TIMESTAMPTZ NOT NULL,
+    isFavourite BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (userId, parcelId)
 );
 
-CREATE TABLE CheckPointParcel
+CREATE TABLE IF NOT EXISTS CheckPointParcel
 (
     checkPointId UUID REFERENCES CheckPoint (id),
     parcelId     UUID REFERENCES ShipmentTracking (id),
