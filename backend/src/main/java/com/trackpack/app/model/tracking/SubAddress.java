@@ -1,11 +1,14 @@
 package com.trackpack.app.model.tracking;
 
 import lombok.Data;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "SubAddress")
 @Data
+@NoArgsConstructor
 public class SubAddress {
 
     @Id
@@ -19,6 +22,10 @@ public class SubAddress {
     private String buildingName;
     private String privateStreetName;
     private String privateStreetNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="address", nullable=false)
+    private Address address;
 
     public SubAddress(String name, String subUnitType,
                       String subUnitNumber, String levelNumber, String buildingName) {
