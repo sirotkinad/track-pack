@@ -3,6 +3,7 @@ package com.trackpack.app.model.tracking;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -33,7 +34,10 @@ public class ShipmentTracking {
 
     private OffsetDateTime statusChangeDate;
     private String statusChangeReason;
+
+    @Min(value = 0, message = "Weight should not be a negative value")
     private int weight;
+
     private OffsetDateTime estimatedDeliveryDate;
 
     @ManyToOne
