@@ -52,7 +52,9 @@ public class ShipmentTrackingService {
     public void updateStatusInfo(UUID id, String status, OffsetDateTime statusChangeDate, String statusChangeReason)
             throws ResourceNotFoundException {
         ShipmentTracking shipmentTracking = findById(id);
-        shipmentTracking.setStatus(status);
+        if (status != null) {
+            shipmentTracking.setStatus(status);
+        }
         shipmentTracking.setStatusChangeDate(statusChangeDate);
         shipmentTracking.setStatusChangeReason(statusChangeReason);
     }
@@ -70,13 +72,19 @@ public class ShipmentTrackingService {
     }
 
     public void updateAddressFrom(UUID id, Address addressFrom) throws ResourceNotFoundException {
-        ShipmentTracking shipmentTracking = findById(id);
-        shipmentTracking.setAddressFrom(addressFrom);
+        if(addressFrom == null){
+            throw new IllegalArgumentException("Address should not be a null value");
+        }
+            ShipmentTracking shipmentTracking = findById(id);
+            shipmentTracking.setAddressFrom(addressFrom);
     }
 
     public void updateAddressTo(UUID id, Address addressTo) throws ResourceNotFoundException {
-        ShipmentTracking shipmentTracking = findById(id);
-        shipmentTracking.setAddressFrom(addressTo);
+        if(addressTo == null){
+            throw new IllegalArgumentException("Address should not be a null value");
+        }
+            ShipmentTracking shipmentTracking = findById(id);
+            shipmentTracking.setAddressFrom(addressTo);
     }
 
     public void update(UUID id, Map<String, Object> changes) throws ResourceNotFoundException {
