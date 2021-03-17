@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "CheckPoint")
+@Table(name = "Checkpoint", schema = "\"track-pack-db\"")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,11 +28,13 @@ public class CheckPoint {
     private OffsetDateTime date;
 
     @NotNull
+    @Column(name = "checkpost")
     private String checkPost;
 
     @NotNull
     private String city;
 
+    @Column(name = "stateorprovince")
     private String stateOrProvince;
 
     @NotNull

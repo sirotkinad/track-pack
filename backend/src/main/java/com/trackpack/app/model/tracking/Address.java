@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Address")
+@Table(name = "Address", schema = "\"track-pack-db\"")
 @Data
 @NoArgsConstructor
 public class Address {
@@ -18,16 +18,23 @@ public class Address {
     private UUID id;
 
     @NotNull
+    @Column(name = "streetnr")
     private String streetNr;
 
+    @Column(name = "streetnrsuffix")
     private String streetNrSuffix;
+    @Column(name = "streetnrlast")
     private String streetNrLast;
+    @Column(name = "streetnrlastsuffix")
     private String streetNrLastSuffix;
 
     @NotNull
+    @Column(name = "streetname")
     private String streetName;
 
+    @Column(name = "streettype")
     private String streetType;
+    @Column(name = "streetsuffix")
     private String streetSuffix;
 
     @NotNull
@@ -39,16 +46,17 @@ public class Address {
     private String city;
 
     @NotNull
+    @Column(name = "stateorprovince")
     private String stateOrProvince;
 
     @NotNull
     private String country;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "geographicLocation", referencedColumnName = "id")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "geographiclocation", referencedColumnName = "id")
     private GeoLocation geographicLocation;
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "address", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<SubAddress> subAddress;
 
     public Address(String streetNr, String streetName, String postcode,

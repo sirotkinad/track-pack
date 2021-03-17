@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "UserParcel")
+@Table(name = "Userparcel")
 @Data
 @NoArgsConstructor
 public class UserParcel {

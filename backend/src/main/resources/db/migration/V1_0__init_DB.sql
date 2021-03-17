@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Users
 (
-    id        UUID PRIMARY KEY NOT NULL,
+    id        UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid (),
     firstName VARCHAR(30)      NOT NULL,
     lastName  VARCHAR(40)      NOT NULL,
     email     VARCHAR(40)      NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Users
 
 CREATE TABLE IF NOT EXISTS GeoPoint
 (
-    id        UUID PRIMARY KEY NOT NULL,
+    id        UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid (),
     accuracy  VARCHAR(10),
     latitude  VARCHAR(15)      NOT NULL,
     longitude VARCHAR(15)      NOT NULL
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS GeoPoint
 
 CREATE TABLE IF NOT EXISTS GeoLocation
 (
-    id              UUID PRIMARY KEY NOT NULL,
+    id              UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid (),
     name            VARCHAR(40)      NOT NULL,
     type            VARCHAR(40),
     geographicPoint UUID REFERENCES GeoPoint (id) ON DELETE RESTRICT
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS GeoLocation
 
 CREATE TABLE IF NOT EXISTS Address
 (
-    id                 UUID PRIMARY KEY NOT NULL,
+    id                 UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid (),
     streetNr           VARCHAR(10)      NOT NULL,
     streetNrSuffix     VARCHAR(10),
     streetNrLast       VARCHAR(10),
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS Address
 
 CREATE TABLE IF NOT EXISTS SubAddress
 (
-    id                  UUID PRIMARY KEY NOT NULL,
+    id                  UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid (),
     type                VARCHAR(40),
     name                VARCHAR(40),
     subUnitType         VARCHAR(40),
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS SubAddress
 
 CREATE TABLE IF NOT EXISTS ShipmentTracking
 (
-    id                    UUID PRIMARY KEY         NOT NULL,
+    id                    UUID PRIMARY KEY         NOT NULL DEFAULT gen_random_uuid (),
     href                  VARCHAR(50),
     carrier               VARCHAR(50),
     trackingCode          VARCHAR(50)              NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS ShipmentTracking
 
 CREATE TABLE IF NOT EXISTS CheckPoint
 (
-    id              UUID PRIMARY KEY         NOT NULL,
+    id              UUID PRIMARY KEY         NOT NULL DEFAULT gen_random_uuid (),
     status          VARCHAR(50)              NOT NULL,
     message         VARCHAR(50),
     date            TIMESTAMPTZ              NOT NULL,
