@@ -75,6 +75,12 @@ public class ShipmentTrackingService {
         repository.save(shipmentTracking);
     }
 
+    public void updateCheckPoints(UUID id, List<CheckPoint> checkPoints) {
+        ShipmentTracking shipmentTracking = findById(id).get();
+        shipmentTracking.setCheckPoints(checkPoints);
+        repository.save(shipmentTracking);
+    }
+
     public void update(UUID id, Map<String, Object> changes) {
         ShipmentTracking shipmentTracking = findById(id).get();
         changes.forEach((field, value) -> {
@@ -107,15 +113,6 @@ public class ShipmentTrackingService {
             }
             if(field.equals("estimatedDeliveryDate")){
                 shipmentTracking.setEstimatedDeliveryDate(OffsetDateTime.parse((String) value));
-            }
-            if(field.equals("addressFrom") && value != null){
-                shipmentTracking.setAddressFrom((Address) value);
-            }
-            if(field.equals("addressTo") && value != null){
-                shipmentTracking.setAddressTo((Address) value);
-            }
-            if(field.equals("checkPoints") && value != null){
-                shipmentTracking.setCheckPoints((List<CheckPoint>) value);
             }
         });
         repository.save(shipmentTracking);

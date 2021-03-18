@@ -104,4 +104,12 @@ public class ShipmentTrackingController {
         return ResponseEntity.ok().body(shipmentTracking);
     }
 
+    @PatchMapping("/tracking/checkpoints/{id}")
+    public ResponseEntity<ShipmentTracking> updateCheckPoints(@PathVariable(value = "id") UUID id, @Valid @RequestBody List<CheckPoint> checkPoints) {
+        ShipmentTracking shipmentTracking = service.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Parcel with id " + id + " is not found"));
+        service.updateCheckPoints(id, checkPoints);
+        return ResponseEntity.ok().body(shipmentTracking);
+    }
+
 }

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Geopoint", schema = "\"track-pack-db\"")
+@Table(name = "geo_point", schema = "\"track-pack-db\"")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

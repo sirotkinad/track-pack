@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "Userparcel")
+@Table(name = "user_parcel")
 @Data
 @NoArgsConstructor
 public class UserParcel {
@@ -20,12 +20,12 @@ public class UserParcel {
 
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     User user;
 
     @ManyToOne
     @MapsId("parcelId")
-    @JoinColumn(name = "parcelId")
+    @JoinColumn(name = "parcel_id")
     ShipmentTracking parcel;
 
     @NotNull

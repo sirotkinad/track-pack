@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Shipmenttracking", schema = "\"track-pack-db\"")
+@Table(name = "shipment_tracking", schema = "\"track-pack-db\"")
 @NoArgsConstructor
 @Data
 public class ShipmentTracking {
@@ -18,46 +18,42 @@ public class ShipmentTracking {
     @Id
     @GeneratedValue
     private UUID id;
+
     private String href;
     private String carrier;
 
     @NotNull
-    @Column(name = "trackingcode", unique = true)
+    @Column(unique = true)
     private String trackingCode;
 
-    @Column(name = "carriertrackingurl")
     private String carrierTrackingUrl;
 
     @NotNull
-    @Column(name = "trackingdate")
     private OffsetDateTime trackingDate;
 
     @NotNull
     private String status;
 
-    @Column(name = "statuschangedate")
     private OffsetDateTime statusChangeDate;
-    @Column(name = "statuschangereason")
     private String statusChangeReason;
 
     @Min(value = 0, message = "Weight should not be a negative value")
     private double weight;
 
-    @Column(name = "estimateddeliverydate")
     private OffsetDateTime estimatedDeliveryDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    @JoinColumn(name="addressfrom", nullable=false)
+    @JoinColumn(name="address_from", nullable=false)
     private Address addressFrom;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    @JoinColumn(name="addressto", nullable=false)
+    @JoinColumn(name="address_to", nullable=false)
     private Address addressTo;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    @JoinTable(name = "Checkpointparcel", schema = "\"track-pack-db\"",
-            joinColumns = @JoinColumn(name = "parcelid"),
-            inverseJoinColumns = @JoinColumn(name = "checkpointid"))
+    @JoinTable(name = "check_point_parcel", schema = "\"track-pack-db\"",
+            joinColumns = @JoinColumn(name = "parcel_id"),
+            inverseJoinColumns = @JoinColumn(name = "check_point_id"))
     private List<CheckPoint> checkPoints;
 
     public ShipmentTracking(String carrier, String trackingCode, OffsetDateTime trackingDate,
