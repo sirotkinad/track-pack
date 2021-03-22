@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
-@Table(name = "GeoLocation")
+@Table(name = "geo_location", schema = "\"track-pack-db\"")
 @Data
 @NoArgsConstructor
 public class GeoLocation {
@@ -22,7 +22,7 @@ public class GeoLocation {
     private String type;
 
     @OneToOne
-    @JoinColumn(name = "geographicPoint", referencedColumnName = "id")
+    @JoinColumn(name = "geographic_point", referencedColumnName = "id")
     private GeoPoint geographicPoint;
 
     public GeoLocation(String name, String type, GeoPoint geographicPoint) {

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "SubAddress")
+@Table(name = "sub_address", schema = "\"track-pack-db\"")
 @Data
 @NoArgsConstructor
 public class SubAddress {
@@ -14,6 +14,7 @@ public class SubAddress {
     @Id
     @GeneratedValue
     private UUID id;
+
     private String type;
     private String name;
     private String subUnitType;
@@ -23,7 +24,7 @@ public class SubAddress {
     private String privateStreetName;
     private String privateStreetNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="address", nullable=false)
     private Address address;
 

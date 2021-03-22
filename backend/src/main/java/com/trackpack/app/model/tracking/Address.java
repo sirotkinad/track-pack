@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Address")
+@Table(name = "address", schema = "\"track-pack-db\"")
 @Data
 @NoArgsConstructor
 public class Address {
@@ -44,11 +44,11 @@ public class Address {
     @NotNull
     private String country;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "geographicLocation", referencedColumnName = "id")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "geographic_location", referencedColumnName = "id")
     private GeoLocation geographicLocation;
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "address", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<SubAddress> subAddress;
 
     public Address(String streetNr, String streetName, String postcode,
