@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "CheckPoint")
+@Table(name = "check_point", schema = "\"track-pack-db\"")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

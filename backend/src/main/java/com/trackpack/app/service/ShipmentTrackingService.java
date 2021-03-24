@@ -38,36 +38,47 @@ public class ShipmentTrackingService {
     }
 
     public void addCheckpoint(UUID id, CheckPoint checkPoint) {
-            ShipmentTracking shipmentTracking = findById(id).get();
-            List<CheckPoint> checkPoints = shipmentTracking.getCheckpoints();
-            if (checkPoints == null) {
-                checkPoints = new ArrayList<>();
-            }
-            checkPoints.add(checkPoint);
+        ShipmentTracking shipmentTracking = findById(id).get();
+        List<CheckPoint> checkPoints = shipmentTracking.getCheckPoints();
+        if (checkPoints == null) {
+            checkPoints = new ArrayList<>();
+        }
+        checkPoints.add(checkPoint);
+        repository.save(shipmentTracking);
     }
 
     public void updateStatusInfo(UUID id, String status, OffsetDateTime statusChangeDate, String statusChangeReason) {
-            ShipmentTracking shipmentTracking = findById(id).get();
-            if (status != null) {
-                shipmentTracking.setStatus(status);
-            }
-            shipmentTracking.setStatusChangeDate(statusChangeDate);
-            shipmentTracking.setStatusChangeReason(statusChangeReason);
+        ShipmentTracking shipmentTracking = findById(id).get();
+        if (status != null) {
+            shipmentTracking.setStatus(status);
         }
+        shipmentTracking.setStatusChangeDate(statusChangeDate);
+        shipmentTracking.setStatusChangeReason(statusChangeReason);
+        repository.save(shipmentTracking);
+    }
 
     public void updateEstimatedDeliveryDate(UUID id, OffsetDateTime estimatedDeliveryDate) {
-            ShipmentTracking shipmentTracking = findById(id).get();
-            shipmentTracking.setEstimatedDeliveryDate(estimatedDeliveryDate);
+        ShipmentTracking shipmentTracking = findById(id).get();
+        shipmentTracking.setEstimatedDeliveryDate(estimatedDeliveryDate);
+        repository.save(shipmentTracking);
     }
 
     public void updateAddressFrom(UUID id, Address addressFrom) {
         ShipmentTracking shipmentTracking = findById(id).get();
         shipmentTracking.setAddressFrom(addressFrom);
+        repository.save(shipmentTracking);
     }
 
     public void updateAddressTo(UUID id, Address addressTo) {
         ShipmentTracking shipmentTracking = findById(id).get();
-        shipmentTracking.setAddressFrom(addressTo);
+        shipmentTracking.setAddressTo(addressTo);
+        repository.save(shipmentTracking);
+    }
+
+    public void updateCheckPoints(UUID id, List<CheckPoint> checkPoints) {
+        ShipmentTracking shipmentTracking = findById(id).get();
+        shipmentTracking.setCheckPoints(checkPoints);
+        repository.save(shipmentTracking);
     }
 
     public void update(UUID id, Map<String, Object> changes) {
@@ -86,33 +97,25 @@ public class ShipmentTrackingService {
                 shipmentTracking.setCarrierTrackingUrl((String) value);
             }
             if(field.equals("trackingDate") && value != null){
-                shipmentTracking.setTrackingDate((OffsetDateTime) value);
+                shipmentTracking.setTrackingDate(OffsetDateTime.parse((String) value));
             }
             if(field.equals("status") && value != null){
                 shipmentTracking.setStatus((String) value);
             }
             if(field.equals("statusChangeDate")){
-                shipmentTracking.setStatusChangeDate((OffsetDateTime) value);
+                shipmentTracking.setStatusChangeDate(OffsetDateTime.parse((String) value));
             }
             if(field.equals("statusChangeReason")){
                 shipmentTracking.setStatusChangeReason((String) value);
             }
             if(field.equals("weight")){
-                shipmentTracking.setWeight((Integer) value);
+                shipmentTracking.setWeight((Double) value);
             }
             if(field.equals("estimatedDeliveryDate")){
-                shipmentTracking.setEstimatedDeliveryDate((OffsetDateTime) value);
-            }
-            if(field.equals("addressFrom") && value != null){
-                shipmentTracking.setAddressFrom((Address) value);
-            }
-            if(field.equals("addressTo") && value != null){
-                shipmentTracking.setAddressTo((Address) value);
-            }
-            if(field.equals("checkPoints") && value != null){
-                shipmentTracking.setCheckpoints((List<CheckPoint>) value);
+                shipmentTracking.setEstimatedDeliveryDate(OffsetDateTime.parse((String) value));
             }
         });
+        repository.save(shipmentTracking);
     }
 
 }
