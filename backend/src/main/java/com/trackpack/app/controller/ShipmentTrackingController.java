@@ -113,4 +113,11 @@ public class ShipmentTrackingController {
         return ResponseEntity.ok().body(shipmentTracking);
     }
 
+    @GetMapping("/tracking/trackingCode/{trackingCode}")
+    public ResponseEntity<ShipmentTracking> getById(@PathVariable(value = "trackingCode") String trackingCode) {
+        ShipmentTracking shipmentTracking = service.findByTrackingCode(trackingCode)
+                .orElseThrow(() -> new ResourceNotFoundException("Parcel with tracking code " + trackingCode + " is not found"));
+        return ResponseEntity.ok().body(shipmentTracking);
+    }
+
 }

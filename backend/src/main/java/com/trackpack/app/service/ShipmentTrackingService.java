@@ -29,6 +29,10 @@ public class ShipmentTrackingService {
         repository.save(shipmentTracking);
     }
 
+    public Optional<ShipmentTracking> findByTrackingCode(String trackingCode){
+        return repository.findByTrackingCode(trackingCode);
+    }
+
     public void delete(ShipmentTracking shipmentTracking) {
         repository.delete(shipmentTracking);
     }
