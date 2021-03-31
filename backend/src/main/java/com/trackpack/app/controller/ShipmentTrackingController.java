@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 
 import java.util.*;
 
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/track-pack")
 public class ShipmentTrackingController {
