@@ -15,7 +15,7 @@
           </v-card>
           <v-chip v-if="getHoursFromLastUpdate(parcel.lastUpdateDate) > 12 && hover===false"
                   class="ma-2" color="blue" text-color="white" small @mouseover="hover = true">
-            Outdated
+            Outdated: {{getOutdated(parcel.lastUpdateDate)}}
           </v-chip>
         </v-col>
         <v-col>
@@ -112,6 +112,17 @@ export default {
     getHoursFromLastUpdate(lastUpdateDate) {
       return Math.floor((Math.abs(Date.now() - lastUpdateDate)) / (60 * 60 * 1000));
     },
+    getOutdated(lastUpdateDate){
+      let result = ""
+      if(this.getHoursFromLastUpdate(lastUpdateDate) < 48) {
+        result = this.getHoursFromLastUpdate(lastUpdateDate) + " hours ago";
+        return result;
+      }
+      else{
+        result =  Math.floor(this.getHoursFromLastUpdate() / 24) + " days ago";
+        return result;
+      }
+    }
   }
 }
 </script>
