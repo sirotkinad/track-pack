@@ -13,7 +13,7 @@
             Information was loaded {{ getDateInString(parcel.lastUpdateDate) }}
             {{ getTimeInString(parcel.lastUpdateDate) }}
           </v-card>
-          <v-chip v-if="getHoursFromLastUpdate(parcel.lastUpdateDate) > 12 && hover===false"
+          <v-chip v-if="outdated === true && hover === false"
                   class="ma-2" color="blue" text-color="white" small @mouseover="hover = true">
             Outdated: {{getOutdated(parcel.lastUpdateDate)}}
           </v-chip>
@@ -83,7 +83,8 @@ export default {
       snackbar: false,
       snackbarMessage: "",
       timeout: 2000,
-      hover: false
+      hover: false,
+      outdated: this.setOutdated(this.parcel.lastUpdateDate)
     }
   },
   props: {
@@ -92,6 +93,7 @@ export default {
   methods: {
     refresh(event) {
       this.$emit('refreshRequest', event);
+      this.outdated = false;
       this.snackbar = true;
       this.snackbarMessage = "Information is updated";
     },
@@ -112,19 +114,26 @@ export default {
     getHoursFromLastUpdate(lastUpdateDate) {
       return Math.floor((Math.abs(Date.now() - lastUpdateDate)) / (60 * 60 * 1000));
     },
-    getOutdated(lastUpdateDate){
+    getOutdated(lastUpdateDate) {
       let result = ""
-      if(this.getHoursFromLastUpdate(lastUpdateDate) < 48) {
+      if (this.getHoursFromLastUpdate(lastUpdateDate) < 48) {
         result = this.getHoursFromLastUpdate(lastUpdateDate) + " hours ago";
         return result;
-      }
-      else{
-        result =  Math.floor(this.getHoursFromLastUpdate() / 24) + " days ago";
+      } else {
+        result = Math.floor(this.getHoursFromLastUpdate() / 24) + " days ago";
         return result;
+      }
+    },
+    setOutdated(lastUpdateDate) {
+      if (this.getHoursFromLastUpdate(lastUpdateDate) > 12) {
+        return true;
+      } else {
+        return false;
       }
     }
   }
 }
+
 </script>
 
 <style scoped>

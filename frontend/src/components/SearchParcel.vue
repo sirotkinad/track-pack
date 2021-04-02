@@ -30,7 +30,7 @@
       </v-row>
       <v-row>
         <v-col v-if="parcelIsExists === true">
-          <ParcelInfo :parcel="lastParcel"></ParcelInfo>
+          <ParcelInfo :parcel="lastParcel" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === false">
           <ParcelInfo :parcel="parcel" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
@@ -94,6 +94,11 @@ export default {
       }
     }
   },
+  mounted() {
+    if(localStorage.getItem(this.lastParcel.trackingCode)) {
+      this.parcel = JSON.parse(localStorage.getItem(this.lastParcel.trackingCode));
+   }
+},
   methods: {
     getParcel(trackingCode) {
       this.dialog = true;
@@ -112,8 +117,6 @@ export default {
     refreshParcel() {
       this.$http.get("http://localhost:8080/track-pack/tracking/trackingCode/" + this.parcel.trackingCode).then(response => {
             this.parcel = response.data;
-            ParcelInfo.data().snackbar = true;
-            ParcelInfo.data().snackbarMessage = "Information is updated"
             this.parcel.lastUpdateDate = Date.now();
           }
       )
