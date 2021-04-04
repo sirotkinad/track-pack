@@ -30,7 +30,7 @@
       </v-row>
       <v-row>
         <v-col v-if="parcelIsExists === true">
-          <ParcelInfo :parcel="lastParcel" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+          <ParcelInfo :parcel="this.getLastParcel()" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === false">
           <ParcelInfo :parcel="parcel" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
@@ -80,8 +80,7 @@ export default {
       },
       dialog: false,
       notFound: null,
-      trackingCode: "",
-      lastParcel: JSON.parse(localStorage.getItem(localStorage.key(0)))
+      trackingCode: ""
     }
   },
   props: {
@@ -95,9 +94,12 @@ export default {
     }
   },
   mounted() {
-    if(localStorage.getItem(this.lastParcel.trackingCode)) {
-      this.parcel = JSON.parse(localStorage.getItem(this.lastParcel.trackingCode));
-   }
+      if(this.parcelIsExists === true) {
+        let lastParcel = this.getLastParcel();
+        if(localStorage.getItem(lastParcel.trackingCode)) {
+          this.parcel = JSON.parse(localStorage.getItem(lastParcel.trackingCode));
+        }
+      }
 },
   methods: {
     getParcel(trackingCode) {
@@ -120,6 +122,9 @@ export default {
             this.parcel.lastUpdateDate = Date.now();
           }
       )
+    },
+    getLastParcel(){
+      return JSON.parse(localStorage.getItem(localStorage.key(0)))
     }
   }
 }
