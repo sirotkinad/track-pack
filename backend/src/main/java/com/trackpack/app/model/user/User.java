@@ -8,7 +8,7 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "\"track-pack-db\"")
 @NoArgsConstructor
 @Data
 public class User {

@@ -5,7 +5,7 @@
         <v-col align="center" cols="1">
           <v-icon color="blue" @click="(event) => refresh(event)"> mdi-refresh</v-icon>
         </v-col>
-        <v-col cols="8" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
+        <v-col cols="7" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
@@ -15,11 +15,14 @@
           </v-card>
           <v-chip v-if="outdated === true && hover === false"
                   class="ma-2" color="blue" text-color="white" small @mouseover="hover = true">
-            Outdated: {{getOutdated(parcel.lastUpdateDate)}}
+            Outdated: {{ getOutdated(parcel.lastUpdateDate) }}
           </v-chip>
         </v-col>
+        <v-col cols="1">
+          <v-icon color="blue" @click="addParcelToList()"> mdi-plus</v-icon>
+        </v-col>
         <v-col>
-          <v-icon color="blue" @click="deleteParcelLocally()"> mdi-delete</v-icon>
+          <v-icon color="blue" @click="deleteParcel()"> mdi-delete</v-icon>
         </v-col>
       </v-row>
       <v-container>
@@ -76,6 +79,9 @@
 </template>
 
 <script>
+
+import {eventBus} from "@/main";
+
 export default {
   name: "ParcelInfo",
   data() {
@@ -84,11 +90,13 @@ export default {
       snackbarMessage: "",
       timeout: 2000,
       hover: false,
-      outdated: this.setOutdated(this.parcel.lastUpdateDate)
+      outdated: this.setOutdated(this.parcel.lastUpdateDate),
     }
   },
   props: {
-    parcel: Object
+    parcel: Object,
+    user: Object,
+    isAuthorized: Boolean
   },
   methods: {
     refresh(event) {
@@ -97,10 +105,23 @@ export default {
       this.snackbar = true;
       this.snackbarMessage = "Information is updated";
     },
-    deleteParcelLocally() {
-      localStorage.removeItem(this.parcel.trackingCode);
-      this.snackbar = true;
-      this.snackbarMessage = "Parcel is deleted";
+    deleteParcel() {
+      if (this.isAuthorized === true) {
+        this.$http.delete("http://localhost:8080/user/deleteParcel/" + this.user.id + "/" + this.parcel.id, {headers: {Authorization: "Bearer " + this.user.token}})
+            .then(() => {
+            }, () => {
+              this.snackbar = true;
+              this.snackbarMessage = "Parcel is not in tracking list";
+            })
+        let parcel = this.parcel
+        eventBus.$emit("deleteFromParcelList", parcel)
+        this.snackbar = true;
+        this.snackbarMessage = "Parcel is deleted";
+      } else {
+        localStorage.removeItem(this.parcel.trackingCode);
+        this.snackbar = true;
+        this.snackbarMessage = "Parcel is deleted";
+      }
     },
     getDateInString(date) {
       return new Date(date).toLocaleDateString();
@@ -130,6 +151,22 @@ export default {
       } else {
         return false;
       }
+    },
+    addParcelToList() {
+      if (this.isAuthorized === true) {
+        this.$http.post("http://localhost:8080/user/addParcel/" + this.user.id + "/" + this.parcel.id, this.parcel, {headers: {Authorization: "Bearer " + this.user.token}})
+            .then(() => {
+            }, () => {
+              this.snackbar = true;
+              this.snackbarMessage = "Parcel is already in a tracking list";
+            })
+        let newParcel = this.parcel
+        eventBus.$emit("addParcelToList", newParcel);
+      } else {
+        localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel))
+      }
+      this.snackbar = true;
+      this.snackbarMessage = "Parcel is added to a tracking list";
     }
   }
 }

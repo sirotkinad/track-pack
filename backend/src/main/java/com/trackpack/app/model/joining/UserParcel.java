@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "user_parcel")
+@Table(name = "user_parcel", schema = "\"track-pack-db\"")
 @Data
 @NoArgsConstructor
 public class UserParcel {
@@ -18,7 +18,7 @@ public class UserParcel {
     @EmbeddedId
     UserParcelKey id;
 
-    @ManyToOne
+   /* @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     User user;
@@ -26,11 +26,15 @@ public class UserParcel {
     @ManyToOne
     @MapsId("parcelId")
     @JoinColumn(name = "parcel_id")
-    ShipmentTracking parcel;
+    ShipmentTracking parcel;*/
+    private String parcelName;
 
-    @NotNull
     private OffsetDateTime addDate;
 
     private boolean isFavourite = false;
+
+    public UserParcel(UserParcelKey id) {
+        this.id = id;
+    }
 
 }

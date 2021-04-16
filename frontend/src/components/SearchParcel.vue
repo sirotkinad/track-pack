@@ -29,11 +29,21 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-if="parcelIsExists === true">
-          <ParcelInfo :parcel="this.getLastParcel()" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+        <v-col v-if="existsInParcelList === true && isAuthorized === true && fromParcelList === true">
+          <ParcelInfo :parcel="this.parcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+        </v-col>
+        <v-col v-else-if="existsInParcelList === true && isAuthorized === true">
+          <ParcelInfo :parcel="this.lastParcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+        </v-col>
+        <v-col v-else-if="existsInCache === true && isAuthorized === false">
+          <ParcelInfo :parcel="this.getLastFromCache()" :isAuthorized="this.isAuthorized" :user="this.user"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === false">
-          <ParcelInfo :parcel="parcel" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+          <ParcelInfo :parcel="parcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === true">
           <ParcelNotFound></ParcelNotFound>
@@ -66,6 +76,7 @@
 
 import ParcelNotFound from "@/components/ParcelNotFound";
 import ParcelInfo from "@/components/ParcelInfo";
+import {eventBus} from "@/main";
 
 export default {
   name: "SearchParcel",
@@ -80,27 +91,45 @@ export default {
       },
       dialog: false,
       notFound: null,
-      trackingCode: ""
+      trackingCode: "",
+      lastParcel: null,
+      fromParcelList: false
     }
   },
   props: {
-    parcelIsExists: Boolean
+    existsInCache: Boolean,
+    existsInParcelList: Boolean,
+    isAuthorized: Boolean,
+    user: Object
   },
   watch: {
     parcel: {
       handler() {
-        localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel));
+        if (this.isAuthorized === false) {
+          localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel));
+        }
       }
     }
   },
+  created() {
+    eventBus.$on("showParcelInfo", (parcel) => {
+      this.parcel = parcel;
+      this.fromParcelList = true;
+    }),
+        eventBus.$on("getLastFromParcelList", (parcel) => {
+          this.lastParcel = parcel;
+        })
+  },
   mounted() {
-      if(this.parcelIsExists === true) {
-        let lastParcel = this.getLastParcel();
-        if(localStorage.getItem(lastParcel.trackingCode)) {
-          this.parcel = JSON.parse(localStorage.getItem(lastParcel.trackingCode));
-        }
+    if (this.existsInParcelList === true && this.isAuthorized === true) {
+      this.parcel = this.lastParcel;
+    } else if (this.existsInCache === true && this.isAuthorized === false) {
+      let lastParcel = this.getLastFromCache();
+      if (localStorage.getItem(lastParcel.trackingCode)) {
+        this.parcel = JSON.parse(localStorage.getItem(lastParcel.trackingCode));
       }
-},
+    }
+  },
   methods: {
     getParcel(trackingCode) {
       this.dialog = true;
@@ -109,7 +138,8 @@ export default {
             this.parcel = response.data;
             this.parcel.lastUpdateDate = Date.now();
             this.notFound = false;
-            this.parcelIsExists = false;
+            this.existsInCache = false;
+            this.existsInParcelList = false;
           }, (response) => {
             console.log(response.data);
             this.notFound = true;
@@ -123,7 +153,7 @@ export default {
           }
       )
     },
-    getLastParcel(){
+    getLastFromCache() {
       return JSON.parse(localStorage.getItem(localStorage.key(0)))
     }
   }
