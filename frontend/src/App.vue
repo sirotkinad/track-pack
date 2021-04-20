@@ -75,9 +75,11 @@ export default {
   }),
   mounted() {
     let regexp = /.+@.+\..+/;
-    if (localStorage.getItem(localStorage.key(0)) && regexp.test(localStorage.key(0))) {
-      this.user = JSON.parse(localStorage.getItem(localStorage.key(0)));
-      this.isAuthorized = true;
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.getItem(localStorage.key(i)) && regexp.test(localStorage.key(i))) {
+        this.user = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        this.isAuthorized = true;
+      }
     }
   },
   methods: {

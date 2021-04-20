@@ -5,7 +5,17 @@
         <v-col align="center" cols="1">
           <v-icon color="blue" @click="(event) => refresh(event)"> mdi-refresh</v-icon>
         </v-col>
-        <v-col cols="7" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
+        <v-col v-if="isAuthorized === true" cols="7">
+          <span v-if="edit === false">{{ getParcelName() }} {{ this.name }}</span>
+          <input v-if="edit === true" v-model.trim="name" style="width:130px"
+                 @blur="editName()"
+                 @keyup.enter="editName"
+                 @keyup.escape="edit = false"
+                 placeholder="Parcel name">
+          , {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
+          <v-icon color="blue" @click="edit = true">mdi-pencil</v-icon>
+        </v-col>
+        <v-col v-else cols="7" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
@@ -29,6 +39,7 @@
         <v-card-text>
           <v-card outlined>
             <v-card-text style="font-size:1rem">
+              <p><b v-if="this.parcelName" class="font-weight-bold"> Tracking code: </b> {{ parcel.trackingCode }}</p>
               <p><b v-if="parcel.carrier" class="font-weight-bold"> Carrier: </b> {{ parcel.carrier }}</p>
               <p><b v-if="parcel.carrierTrackingUrl" class="font-weight-bold">Carrier's link for tracking: </b>
                 {{ parcel.carrierTrackingUrl }} </p>
@@ -88,15 +99,24 @@ export default {
     return {
       snackbar: false,
       snackbarMessage: "",
-      timeout: 2000,
+      timeout: 3000,
       hover: false,
       outdated: this.setOutdated(this.parcel.lastUpdateDate),
+      edit: false,
+      name: "",
+      existsInList: false
     }
   },
   props: {
     parcel: Object,
     user: Object,
-    isAuthorized: Boolean
+    isAuthorized: Boolean,
+    parcelName: String
+  },
+  created() {
+    eventBus.$on("existsInList", (value) => {
+      this.existsInList = value;
+    })
   },
   methods: {
     refresh(event) {
@@ -113,8 +133,8 @@ export default {
               this.snackbar = true;
               this.snackbarMessage = "Parcel is not in tracking list";
             })
-        let parcel = this.parcel
-        eventBus.$emit("deleteFromParcelList", parcel)
+        let parcel = this.parcel;
+        eventBus.$emit("deleteFromParcelList", parcel);
         this.snackbar = true;
         this.snackbarMessage = "Parcel is deleted";
       } else {
@@ -122,6 +142,7 @@ export default {
         this.snackbar = true;
         this.snackbarMessage = "Parcel is deleted";
       }
+      eventBus.$emit("hideParcelInfo");
     },
     getDateInString(date) {
       return new Date(date).toLocaleDateString();
@@ -156,21 +177,39 @@ export default {
       if (this.isAuthorized === true) {
         this.$http.post("http://localhost:8080/user/addParcel/" + this.user.id + "/" + this.parcel.id, this.parcel, {headers: {Authorization: "Bearer " + this.user.token}})
             .then(() => {
+              this.name = this.parcel.trackingCode;
+              this.parcelName = this.parcel.trackingCode;
             }, () => {
               this.snackbar = true;
               this.snackbarMessage = "Parcel is already in a tracking list";
             })
-        let newParcel = this.parcel
-        eventBus.$emit("addParcelToList", newParcel);
+        eventBus.$emit("addParcelToList", this.parcel);
+        eventBus.$emit("getLastFromParcelList", this.parcel);
+        this.snackbar = true;
+        this.snackbarMessage = "Parcel is added to a tracking list";
       } else {
-        localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel))
+        this.snackbar = true;
+        this.snackbarMessage = "Please, sign in to add parcel to a tracking list";
       }
-      this.snackbar = true;
-      this.snackbarMessage = "Parcel is added to a tracking list";
+    },
+    editName() {
+      this.edit = false;
+      eventBus.$emit("checkIfInParcelList", this.parcel);
+      if (this.existsInList === true) {
+        if (this.name != 0 && this.name != this.parcelName) {
+          this.$http.post("http://localhost:8080/user/addName/" + this.user.id + "/" + this.parcel.id + "/" + this.name, "", {headers: {Authorization: "Bearer " + this.user.token}});
+          eventBus.$emit("editName", this.parcel.trackingCode, this.name)
+          eventBus.$emit("setParcelName", this.name);
+        }
+      } else {
+        eventBus.$emit("setParcelName", this.name);
+      }
+    },
+    getParcelName() {
+      this.name = this.parcelName;
     }
   }
 }
-
 </script>
 
 <style scoped>

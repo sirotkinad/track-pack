@@ -1,5 +1,6 @@
 package com.trackpack.app.controller;
 
+import com.trackpack.app.model.joining.UserParcel;
 import com.trackpack.app.model.tracking.ShipmentTracking;
 import com.trackpack.app.service.UserParcelService;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,12 @@ public class UserParcelController {
     public ResponseEntity<Void> setParcelName(@PathVariable(value = "userId") UUID userId, @PathVariable(value = "parcelId") UUID parcelId, @PathVariable(value = "name")String name) {
         service.setParcelName(userId, parcelId, name);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/getName/{userId}/{parcelId}")
+    public ResponseEntity<String> getParcelName(@PathVariable(value = "userId") UUID userId, @PathVariable(value = "parcelId") UUID parcelId) {
+        String name = service.getParcelName(userId, parcelId);
+        return ResponseEntity.ok().body(name);
     }
 
 }

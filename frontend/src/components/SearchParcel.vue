@@ -29,12 +29,16 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-if="existsInParcelList === true && isAuthorized === true && fromParcelList === true">
+        <v-col v-if="hideParcelInfo === true">
+        </v-col>
+        <v-col v-else-if="existsInParcelList === true && isAuthorized === true && fromParcelList === true">
           <ParcelInfo :parcel="this.parcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      :parcelName="this.parcelName"
                       v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="existsInParcelList === true && isAuthorized === true">
           <ParcelInfo :parcel="this.lastParcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      :parcelName="this.parcelName"
                       v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="existsInCache === true && isAuthorized === false">
@@ -42,7 +46,7 @@
                       v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === false">
-          <ParcelInfo :parcel="parcel" :isAuthorized="this.isAuthorized" :user="this.user"
+          <ParcelInfo :parcel="parcel" :isAuthorized="this.isAuthorized" :user="this.user" :parcelName="this.parcelName"
                       v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === true">
@@ -87,13 +91,15 @@ export default {
         id: "", href: "", carrier: "", trackingCode: "", carrierTrackingUrl: "",
         trackingDate: "", status: "", statusChangeDate: "", statusChangeReason: "",
         weight: "", estimatedDeliveryDate: "", addressFrom: null, addressTo: null,
-        checkPoints: [], lastUpdateDate: ""
+        checkPoints: [], lastUpdateDate: "", name: ""
       },
       dialog: false,
       notFound: null,
       trackingCode: "",
+      parcelName: "",
       lastParcel: null,
-      fromParcelList: false
+      fromParcelList: false,
+      hideParcelInfo: false
     }
   },
   props: {
@@ -112,13 +118,21 @@ export default {
     }
   },
   created() {
-    eventBus.$on("showParcelInfo", (parcel) => {
+    eventBus.$on("showParcelInfo", (parcel, name) => {
+      this.hideParcelInfo = false;
       this.parcel = parcel;
+      this.parcelName = name;
       this.fromParcelList = true;
     }),
         eventBus.$on("getLastFromParcelList", (parcel) => {
           this.lastParcel = parcel;
+        }),
+        eventBus.$on("hideParcelInfo", () => {
+          this.hideParcelInfo = true;
         })
+    eventBus.$on("setParcelName", (parcelName) => {
+      this.parcelName = parcelName;
+    })
   },
   mounted() {
     if (this.existsInParcelList === true && this.isAuthorized === true) {
@@ -135,11 +149,13 @@ export default {
       this.dialog = true;
       setTimeout(() => (this.dialog = false), 500);
       this.$http.get("http://localhost:8080/track-pack/tracking/trackingCode/" + trackingCode).then(response => {
+            this.hideParcelInfo = false;
             this.parcel = response.data;
             this.parcel.lastUpdateDate = Date.now();
             this.notFound = false;
             this.existsInCache = false;
             this.existsInParcelList = false;
+            this.parcelName = this.parcel.trackingCode;
           }, (response) => {
             console.log(response.data);
             this.notFound = true;

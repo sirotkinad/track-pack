@@ -27,10 +27,14 @@
               <v-list-item-title>My parcels</v-list-item-title>
             </template>
             <v-list-item
+                two-line
                 v-for="parcel in parcelList"
                 :key="parcel.trackingCode"
                 @click="openParcelInfo(parcel)">
-              <v-list-item-title v-text="parcel.trackingCode"></v-list-item-title>
+              <v-list-item-content>
+                <v-list-item-title v-text="parcel.trackingCode">{{ getParcelName(parcel) }}</v-list-item-title>
+                <v-list-item-subtitle v-if="parcel.hasName" v-text="parcel.name"></v-list-item-subtitle>
+              </v-list-item-content>
             </v-list-item>
           </v-list-group>
         </v-list>
@@ -47,11 +51,11 @@ export default {
   name: "UserProfile",
   data() {
     return {
-      parcelList: this.getParcelList()
+      parcelList: this.getParcelList(),
+      names: new Map()
     }
   },
   props: {
-    username: String,
     user: Object
   },
   created() {
@@ -64,11 +68,28 @@ export default {
           if (this.parcelList.indexOf(parcel) != -1) {
             this.parcelList.splice(this.parcelList.indexOf(parcel), 1);
           }
+          if (this.names != undefined && this.name.has(parcel.trackingCode)) {
+            this.names.delete(parcel.trackingCode);
+          }
+        })
+    eventBus.$on("editName", (trackingCode, parcelName) => {
+      this.names.set(trackingCode, parcelName);
+    }),
+        eventBus.$on("checkIfInParcelList", (parcel) => {
+          if (this.parcelList.indexOf(parcel) != -1) {
+            eventBus.$emit("existsInList", true)
+          } else {
+            eventBus.$emit("existsInList", false)
+          }
         })
   },
   methods: {
     openParcelInfo(parcel) {
-      eventBus.$emit("showParcelInfo", parcel);
+      if (this.names != null && this.names.has(parcel.trackingCode)) {
+        eventBus.$emit("showParcelInfo", parcel, parcel.name);
+      } else {
+        eventBus.$emit("showParcelInfo", parcel, parcel.trackingCode);
+      }
     },
     getParcelList() {
       this.$http.get("http://localhost:8080/user/parcels/" + this.user.id, {headers: {Authorization: "Bearer " + this.user.token}})
@@ -85,7 +106,31 @@ export default {
     logout(email) {
       localStorage.removeItem(email);
       this.$emit("notAuthorized");
+      eventBus.$emit("hideParcelInfo");
     },
+    hasName(parcel) {
+      if (this.names.has(parcel.trackingCode)) {
+        parcel.name = this.names.get(parcel.trackingCode);
+        return true;
+      }
+      return false;
+    },
+    getParcelName(parcel) {
+      this.$http.get("http://localhost:8080/user/getName/" + this.user.id + "/" + parcel.id, {headers: {Authorization: "Bearer " + this.user.token}})
+          .then(response => {
+            let resp = response;
+            if (resp.bodyText.length != 0) {
+              parcel.name = resp.bodyText;
+              parcel.hasName = true;
+              this.names.set(parcel.trackingCode, parcel.name);
+              eventBus.$emit("setParcelName", parcel.name);
+            } else {
+              parcel.name = null;
+              parcel.hasName = false;
+              eventBus.$emit("setParcelName", parcel.trackingCode);
+            }
+          })
+    }
   }
 }
 </script>
