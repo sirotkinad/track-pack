@@ -47,7 +47,8 @@
               </p>
               <p><b v-if="parcel.weight" class="font-weight-bold"> Weight: </b> {{ parcel.weight }}</p>
               <p><b v-if="parcel.estimatedDeliveryDate" class="font-weight-bold"> Estimated delivery date: </b>
-                {{ getDateInString(parcel.estimatedDeliveryDate) }} </p>
+                {{ getDateInString(parcel.estimatedDeliveryDate) }}
+                <span v-if="this.parcelAmount != 0"> (based on {{ parcelAmount }} parcels)</span></p>
               <p><b class="font-weight-bold"> Departure address: </b> {{ parcel.addressFrom.country }},
                 {{ parcel.addressFrom.city }}, {{ parcel.addressFrom.streetName }}</p>
               <p><b class="font-weight-bold"> Arrival address: </b> {{ parcel.addressTo.country }},
@@ -104,7 +105,8 @@ export default {
       outdated: this.setOutdated(this.parcel.lastUpdateDate),
       edit: false,
       name: "",
-      existsInList: false
+      existsInList: false,
+      parcelAmount: this.getParcelAmount()
     }
   },
   props: {
@@ -207,6 +209,14 @@ export default {
     },
     getParcelName() {
       this.name = this.parcelName;
+    },
+    getParcelAmount() {
+      this.$http.get("http://localhost:8080/track-pack/tracking/statistics/" + this.parcel.id).then(response => {
+            this.parcelAmount = response.data;
+          }, () => {
+            this.parcelAmount = 0;
+          }
+      )
     }
   }
 }
