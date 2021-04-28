@@ -83,11 +83,14 @@ export default {
     validate() {
       if (this.$refs.signInForm.validate()) {
         this.$http.post("http://localhost:8080/auth/signIn", this.registeredUser).then(response => {
-              this.registeredUser = response.data;
-              localStorage.setItem(this.registeredUser.email, JSON.stringify(this.registeredUser));
+              let registered = response.data;
+              localStorage.setItem(registered.email, JSON.stringify(registered));
               this.$emit("close")
-              eventBus.$emit("getUserIdAndToken", this.registeredUser.id)
-              this.$emit("isAuthorized", this.registeredUser)
+              eventBus.$emit("getUserIdAndToken", registered.id)
+              this.$emit("isAuthorized", registered)
+              eventBus.$emit("hideNotFound")
+              this.registeredUser.email = ""
+              this.registeredUser.password = ""
             }, (response) => {
               console.log(response);
               this.failMessage = "Invalid email or password";

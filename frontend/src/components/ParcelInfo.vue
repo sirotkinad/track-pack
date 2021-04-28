@@ -2,10 +2,10 @@
   <v-container>
     <v-card>
       <v-row>
-        <v-col align="center" cols="1">
+        <v-col cols="1" align="center" align-self="center">
           <v-icon color="blue" @click="(event) => refresh(event)"> mdi-refresh</v-icon>
         </v-col>
-        <v-col v-if="isAuthorized === true" cols="7">
+        <v-col v-if="isAuthorized === true" cols="5" align-self="center" align="start">
           <span v-if="edit === false">{{ getParcelName() }} {{ this.name }}</span>
           <input v-if="edit === true" v-model.trim="name" style="width:130px"
                  @blur="editName()"
@@ -15,7 +15,7 @@
           , {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
           <v-icon color="blue" @click="edit = true">mdi-pencil</v-icon>
         </v-col>
-        <v-col v-else cols="5" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
+        <v-col v-else cols="5" class="black--text" style="font-size:1rem" align-self="center">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
@@ -30,13 +30,13 @@
         </v-col>
         <v-col cols="2">
           <v-chip class="ma-2" color="blue" text-color="white" small>
-            Est.Del.date: {{ getDateInString(parcel.estimatedDeliveryDate) }}
+            Est. delivery: {{ getDateInString(parcel.estimatedDeliveryDate) }}
           </v-chip>
         </v-col>
-        <v-col>
+        <v-col align-self="center" align="end">
           <v-icon color="blue" @click="addParcelToList()"> mdi-plus</v-icon>
         </v-col>
-        <v-col>
+        <v-col align-self="center" align="center">
           <v-icon color="blue" @click="deleteParcel()"> mdi-delete</v-icon>
         </v-col>
       </v-row>
@@ -44,7 +44,8 @@
         <v-card-text>
           <v-card outlined>
             <v-card-text style="font-size:1rem">
-              <p><b v-if="this.parcelName" class="font-weight-bold"> Tracking code: </b> {{ parcel.trackingCode }}</p>
+              <p><b v-if="parcel.trackingCode" class="font-weight-bold"> Tracking code: </b> {{ parcel.trackingCode }}
+              </p>
               <p><b v-if="parcel.carrier" class="font-weight-bold"> Carrier: </b> {{ parcel.carrier }}</p>
               <p><b v-if="parcel.carrierTrackingUrl" class="font-weight-bold">Carrier's link for tracking: </b>
                 {{ parcel.carrierTrackingUrl }} </p>
@@ -124,14 +125,16 @@ export default {
   created() {
     eventBus.$on("existsInList", (value) => {
       this.existsInList = value;
-    })
+    }),
+        eventBus.$on("setMessageAfterUpdate", (message) => {
+          this.snackbar = true;
+          this.snackbarMessage = message;
+        })
   },
   methods: {
     refresh(event) {
       this.$emit('refreshRequest', event);
       this.outdated = false;
-      this.snackbar = true;
-      this.snackbarMessage = "Information is updated";
     },
     deleteParcel() {
       if (this.isAuthorized === true) {

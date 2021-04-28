@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color: aliceblue">
     <v-container>
       <v-row justify="center">
         <h4 class="headline blue-grey--text text--accent-2">
@@ -20,10 +20,11 @@
               required>
           </v-text-field>
         </v-col>
-        <v-col>
+        <v-col class=my-2>
           <v-btn dark color="blue"
                  :loading="dialog"
-                 @click="getParcel(trackingCode)">
+                 @click="getParcel(trackingCode)"
+                 height="31px">
             Search
           </v-btn>
         </v-col>
@@ -49,9 +50,9 @@
           <ParcelInfo :parcel="parcel" :isAuthorized="this.isAuthorized" :user="this.user" :parcelName="this.parcelName"
                       v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
-        <v-col v-else-if="notFound === true">
+        <v-row v-if="notFound === true">
           <ParcelNotFound></ParcelNotFound>
-        </v-col>
+        </v-row>
       </v-row>
     </v-container>
     <v-dialog
@@ -129,6 +130,10 @@ export default {
         }),
         eventBus.$on("hideParcelInfo", () => {
           this.hideParcelInfo = true;
+          this.notFound = false;
+        }),
+        eventBus.$on("hideNotFound", () => {
+          this.notFound = false;
         })
     eventBus.$on("setParcelName", (parcelName) => {
       this.parcelName = parcelName;
@@ -156,9 +161,9 @@ export default {
             this.existsInCache = false;
             this.existsInParcelList = false;
             this.parcelName = this.parcel.trackingCode;
-          }, (response) => {
-            console.log(response.data);
+          }, () => {
             this.notFound = true;
+            this.hideParcelInfo = true;
           }
       )
     },
@@ -166,6 +171,9 @@ export default {
       this.$http.get("http://localhost:8080/track-pack/tracking/trackingCode/" + this.parcel.trackingCode).then(response => {
             this.parcel = response.data;
             this.parcel.lastUpdateDate = Date.now();
+            eventBus.$emit("setMessageAfterUpdate", "Information is updated")
+          }, () => {
+            eventBus.$emit("setMessageAfterUpdate", "Update has failed");
           }
       )
     },
@@ -180,4 +188,4 @@ export default {
 /deep/ .v-text-field {
   width: 900px;
 }
-</style>
+ </style>

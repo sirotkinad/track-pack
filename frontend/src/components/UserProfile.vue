@@ -2,12 +2,12 @@
   <v-row>
     <v-col cols="2">
       <v-avatar>
-        <v-icon color="white" large>
+        <v-icon color="white" size="35px">
           mdi-account-circle
         </v-icon>
       </v-avatar>
     </v-col>
-    <v-col cols="6" style="font-size:1.2rem">{{ user.email }}</v-col>
+    <v-col cols="6" align-self="center" style="font-size:1.2rem">{{ user.email }}</v-col>
     <v-col cols="2">
       <v-menu :close-on-content-click="false">
         <template v-slot:activator="{ on, attrs }">
@@ -68,7 +68,7 @@ export default {
           if (this.parcelList.indexOf(parcel) != -1) {
             this.parcelList.splice(this.parcelList.indexOf(parcel), 1);
           }
-          if (this.names != undefined && this.name.has(parcel.trackingCode)) {
+          if (this.names != undefined && this.names.has(parcel.trackingCode)) {
             this.names.delete(parcel.trackingCode);
           }
         })
@@ -97,6 +97,7 @@ export default {
             this.parcelList = response.data.slice();
             let len = this.parcelList.length;
             eventBus.$emit("getLastFromParcelList", this.parcelList[len - 1])
+            eventBus.$emit("getParcelList", this.parcelList)
           })
     },
     existsInParcelList() {
