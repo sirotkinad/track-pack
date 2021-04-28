@@ -3,6 +3,7 @@ package com.trackpack.app.service;
 import com.trackpack.app.model.tracking.Address;
 import com.trackpack.app.model.tracking.CheckPoint;
 import com.trackpack.app.model.tracking.ShipmentTracking;
+import com.trackpack.app.repository.DeliveryStatisticsRepository;
 import com.trackpack.app.repository.ShipmentTrackingRepository;
 import org.springframework.stereotype.Service;
 import java.time.*;
@@ -12,9 +13,11 @@ import java.util.*;
 public class ShipmentTrackingService {
 
     private final ShipmentTrackingRepository repository;
+    private final DeliveryStatisticsRepository deliveryRepository;
 
-    public ShipmentTrackingService(ShipmentTrackingRepository repository) {
+    public ShipmentTrackingService(ShipmentTrackingRepository repository, DeliveryStatisticsRepository deliveryRepository) {
         this.repository = repository;
+        this.deliveryRepository = deliveryRepository;
     }
 
     public List<ShipmentTracking> findAll() {
@@ -120,6 +123,36 @@ public class ShipmentTrackingService {
             }
         });
         repository.save(shipmentTracking);
+    }
+
+    public List<ShipmentTracking> getDeliveredParcels() {
+        return repository.getDeliveredParcels();
+    }
+
+    public List<ShipmentTracking> getNewDeliveredParcels(OffsetDateTime lastUpdateDate) {
+        return repository.getNewDeliveredParcels(lastUpdateDate);
+    }
+
+    public String findCityFromById(UUID id) {
+        return repository.findCityFromById(id);
+    }
+
+    public String findCityToById(UUID id) {
+        return repository.findCityToById(id);
+    }
+
+    public List<ShipmentTracking> getCurrentParcels() {
+        return repository.getCurrentParcels();
+    }
+
+    public Integer getStatisticsSize(UUID id) {
+        String cityFrom = findCityFromById(id);
+        String cityTo = findCityToById(id);
+        DeliveryStatisticsService deliveryService = new DeliveryStatisticsService(deliveryRepository);
+        if(deliveryService.findByCities(cityFrom, cityTo).isPresent()){
+            return deliveryService.findByCities(cityFrom, cityTo).get().getParcelAmount();
+        }
+        return 0;
     }
 
 }

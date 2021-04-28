@@ -120,4 +120,11 @@ public class ShipmentTrackingController {
         return ResponseEntity.ok().body(shipmentTracking);
     }
 
+    @GetMapping("/tracking/statistics/{id}")
+    public Integer getStatisticsSize(@PathVariable(value = "id") UUID id) {
+        ShipmentTracking shipmentTracking = service.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Parcel with id " + id + " is not found"));
+        return service.getStatisticsSize(id);
+    }
+
 }

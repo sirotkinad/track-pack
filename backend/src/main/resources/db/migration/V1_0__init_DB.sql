@@ -102,3 +102,14 @@ CREATE TABLE IF NOT EXISTS check_point_parcel
     parcel_id      UUID REFERENCES shipment_tracking (id),
     PRIMARY KEY (check_point_id, parcel_id)
 );
+
+CREATE TABLE IF NOT EXISTS delivery_statistics
+(
+    id                    UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
+    city_from             VARCHAR(50)      NOT NULL,
+    city_to               VARCHAR(50)      NOT NULL,
+    parcel_amount         INTEGER          NOT NULL,
+    average_delivery_time REAL             NOT NULL,
+    last_update_date      TIMESTAMPTZ      NOT NULL,
+    UNIQUE (city_from, city_to)
+);

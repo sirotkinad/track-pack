@@ -15,7 +15,7 @@
           , {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
           <v-icon color="blue" @click="edit = true">mdi-pencil</v-icon>
         </v-col>
-        <v-col v-else cols="7" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
+        <v-col v-else cols="5" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
@@ -28,7 +28,12 @@
             Outdated: {{ getOutdated(parcel.lastUpdateDate) }}
           </v-chip>
         </v-col>
-        <v-col cols="1">
+        <v-col cols="2">
+          <v-chip class="ma-2" color="blue" text-color="white" small>
+            Est.Del.date: {{ getDateInString(parcel.estimatedDeliveryDate) }}
+          </v-chip>
+        </v-col>
+        <v-col>
           <v-icon color="blue" @click="addParcelToList()"> mdi-plus</v-icon>
         </v-col>
         <v-col>
@@ -47,7 +52,9 @@
               </p>
               <p><b v-if="parcel.weight" class="font-weight-bold"> Weight: </b> {{ parcel.weight }}</p>
               <p><b v-if="parcel.estimatedDeliveryDate" class="font-weight-bold"> Estimated delivery date: </b>
-                {{ getDateInString(parcel.estimatedDeliveryDate) }} </p>
+                {{ getDateInString(parcel.estimatedDeliveryDate) }}
+                {{ getParcelAmount() }}
+                <span v-if="this.parcelAmount != 0"> (based on {{ parcelAmount }} parcels)</span></p>
               <p><b class="font-weight-bold"> Departure address: </b> {{ parcel.addressFrom.country }},
                 {{ parcel.addressFrom.city }}, {{ parcel.addressFrom.streetName }}</p>
               <p><b class="font-weight-bold"> Arrival address: </b> {{ parcel.addressTo.country }},
@@ -104,7 +111,8 @@ export default {
       outdated: this.setOutdated(this.parcel.lastUpdateDate),
       edit: false,
       name: "",
-      existsInList: false
+      existsInList: false,
+      parcelAmount: 0
     }
   },
   props: {
@@ -207,6 +215,14 @@ export default {
     },
     getParcelName() {
       this.name = this.parcelName;
+    },
+    getParcelAmount() {
+      this.$http.get("http://localhost:8080/track-pack/tracking/statistics/" + this.parcel.id).then(response => {
+            this.parcelAmount = response.data;
+          }, () => {
+            this.parcelAmount = 0;
+          }
+      )
     }
   }
 }
