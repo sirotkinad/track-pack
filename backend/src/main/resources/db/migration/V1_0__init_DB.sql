@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS users
     id         UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
     first_name VARCHAR(30)      NOT NULL,
     last_name  VARCHAR(40)      NOT NULL,
-    email      VARCHAR(40)      NOT NULL,
-    password   VARCHAR(20)      NOT NULL
+    email      VARCHAR(50)      NOT NULL,
+    password   VARCHAR(255)      NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS geo_point
@@ -90,7 +90,8 @@ CREATE TABLE IF NOT EXISTS user_parcel
 (
     user_id      UUID REFERENCES users (id) ON DELETE RESTRICT,
     parcel_id    UUID REFERENCES shipment_tracking (id) ON DELETE RESTRICT,
-    add_date     TIMESTAMPTZ NOT NULL,
+    parcel_name  VARCHAR(50),
+    add_date     TIMESTAMPTZ,
     is_favourite BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (user_id, parcel_id)
 );

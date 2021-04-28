@@ -29,11 +29,25 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-if="parcelIsExists === true">
-          <ParcelInfo :parcel="this.getLastParcel()" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+        <v-col v-if="hideParcelInfo === true">
+        </v-col>
+        <v-col v-else-if="existsInParcelList === true && isAuthorized === true && fromParcelList === true">
+          <ParcelInfo :parcel="this.parcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      :parcelName="this.parcelName"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+        </v-col>
+        <v-col v-else-if="existsInParcelList === true && isAuthorized === true">
+          <ParcelInfo :parcel="this.lastParcel" :isAuthorized="this.isAuthorized" :user="this.user"
+                      :parcelName="this.parcelName"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+        </v-col>
+        <v-col v-else-if="existsInCache === true && isAuthorized === false">
+          <ParcelInfo :parcel="this.getLastFromCache()" :isAuthorized="this.isAuthorized" :user="this.user"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === false">
-          <ParcelInfo :parcel="parcel" v-on:refreshRequest="refreshParcel()"></ParcelInfo>
+          <ParcelInfo :parcel="parcel" :isAuthorized="this.isAuthorized" :user="this.user" :parcelName="this.parcelName"
+                      v-on:refreshRequest="refreshParcel()"></ParcelInfo>
         </v-col>
         <v-col v-else-if="notFound === true">
           <ParcelNotFound></ParcelNotFound>
@@ -66,6 +80,7 @@
 
 import ParcelNotFound from "@/components/ParcelNotFound";
 import ParcelInfo from "@/components/ParcelInfo";
+import {eventBus} from "@/main";
 
 export default {
   name: "SearchParcel",
@@ -76,40 +91,71 @@ export default {
         id: "", href: "", carrier: "", trackingCode: "", carrierTrackingUrl: "",
         trackingDate: "", status: "", statusChangeDate: "", statusChangeReason: "",
         weight: "", estimatedDeliveryDate: "", addressFrom: null, addressTo: null,
-        checkPoints: [], lastUpdateDate: ""
+        checkPoints: [], lastUpdateDate: "", name: ""
       },
       dialog: false,
       notFound: null,
-      trackingCode: ""
+      trackingCode: "",
+      parcelName: "",
+      lastParcel: null,
+      fromParcelList: false,
+      hideParcelInfo: false
     }
   },
   props: {
-    parcelIsExists: Boolean
+    existsInCache: Boolean,
+    existsInParcelList: Boolean,
+    isAuthorized: Boolean,
+    user: Object
   },
   watch: {
     parcel: {
       handler() {
-        localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel));
+        if (this.isAuthorized === false) {
+          localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel));
+        }
       }
     }
   },
+  created() {
+    eventBus.$on("showParcelInfo", (parcel, name) => {
+      this.hideParcelInfo = false;
+      this.parcel = parcel;
+      this.parcelName = name;
+      this.fromParcelList = true;
+    }),
+        eventBus.$on("getLastFromParcelList", (parcel) => {
+          this.lastParcel = parcel;
+        }),
+        eventBus.$on("hideParcelInfo", () => {
+          this.hideParcelInfo = true;
+        })
+    eventBus.$on("setParcelName", (parcelName) => {
+      this.parcelName = parcelName;
+    })
+  },
   mounted() {
-      if(this.parcelIsExists === true) {
-        let lastParcel = this.getLastParcel();
-        if(localStorage.getItem(lastParcel.trackingCode)) {
-          this.parcel = JSON.parse(localStorage.getItem(lastParcel.trackingCode));
-        }
+    if (this.existsInParcelList === true && this.isAuthorized === true) {
+      this.parcel = this.lastParcel;
+    } else if (this.existsInCache === true && this.isAuthorized === false) {
+      let lastParcel = this.getLastFromCache();
+      if (localStorage.getItem(lastParcel.trackingCode)) {
+        this.parcel = JSON.parse(localStorage.getItem(lastParcel.trackingCode));
       }
-},
+    }
+  },
   methods: {
     getParcel(trackingCode) {
       this.dialog = true;
       setTimeout(() => (this.dialog = false), 500);
       this.$http.get("http://localhost:8080/track-pack/tracking/trackingCode/" + trackingCode).then(response => {
+            this.hideParcelInfo = false;
             this.parcel = response.data;
             this.parcel.lastUpdateDate = Date.now();
             this.notFound = false;
-            this.parcelIsExists = false;
+            this.existsInCache = false;
+            this.existsInParcelList = false;
+            this.parcelName = this.parcel.trackingCode;
           }, (response) => {
             console.log(response.data);
             this.notFound = true;
@@ -123,7 +169,7 @@ export default {
           }
       )
     },
-    getLastParcel(){
+    getLastFromCache() {
       return JSON.parse(localStorage.getItem(localStorage.key(0)))
     }
   }

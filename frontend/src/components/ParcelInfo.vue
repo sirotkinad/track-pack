@@ -5,7 +5,17 @@
         <v-col align="center" cols="1">
           <v-icon color="blue" @click="(event) => refresh(event)"> mdi-refresh</v-icon>
         </v-col>
-        <v-col cols="8" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
+        <v-col v-if="isAuthorized === true" cols="7">
+          <span v-if="edit === false">{{ getParcelName() }} {{ this.name }}</span>
+          <input v-if="edit === true" v-model.trim="name" style="width:130px"
+                 @blur="editName()"
+                 @keyup.enter="editName"
+                 @keyup.escape="edit = false"
+                 placeholder="Parcel name">
+          , {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
+          <v-icon color="blue" @click="edit = true">mdi-pencil</v-icon>
+        </v-col>
+        <v-col v-else cols="7" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
@@ -15,17 +25,21 @@
           </v-card>
           <v-chip v-if="outdated === true && hover === false"
                   class="ma-2" color="blue" text-color="white" small @mouseover="hover = true">
-            Outdated: {{getOutdated(parcel.lastUpdateDate)}}
+            Outdated: {{ getOutdated(parcel.lastUpdateDate) }}
           </v-chip>
         </v-col>
+        <v-col cols="1">
+          <v-icon color="blue" @click="addParcelToList()"> mdi-plus</v-icon>
+        </v-col>
         <v-col>
-          <v-icon color="blue" @click="deleteParcelLocally()"> mdi-delete</v-icon>
+          <v-icon color="blue" @click="deleteParcel()"> mdi-delete</v-icon>
         </v-col>
       </v-row>
       <v-container>
         <v-card-text>
           <v-card outlined>
             <v-card-text style="font-size:1rem">
+              <p><b v-if="this.parcelName" class="font-weight-bold"> Tracking code: </b> {{ parcel.trackingCode }}</p>
               <p><b v-if="parcel.carrier" class="font-weight-bold"> Carrier: </b> {{ parcel.carrier }}</p>
               <p><b v-if="parcel.carrierTrackingUrl" class="font-weight-bold">Carrier's link for tracking: </b>
                 {{ parcel.carrierTrackingUrl }} </p>
@@ -76,19 +90,33 @@
 </template>
 
 <script>
+
+import {eventBus} from "@/main";
+
 export default {
   name: "ParcelInfo",
   data() {
     return {
       snackbar: false,
       snackbarMessage: "",
-      timeout: 2000,
+      timeout: 3000,
       hover: false,
-      outdated: this.setOutdated(this.parcel.lastUpdateDate)
+      outdated: this.setOutdated(this.parcel.lastUpdateDate),
+      edit: false,
+      name: "",
+      existsInList: false
     }
   },
   props: {
-    parcel: Object
+    parcel: Object,
+    user: Object,
+    isAuthorized: Boolean,
+    parcelName: String
+  },
+  created() {
+    eventBus.$on("existsInList", (value) => {
+      this.existsInList = value;
+    })
   },
   methods: {
     refresh(event) {
@@ -97,10 +125,24 @@ export default {
       this.snackbar = true;
       this.snackbarMessage = "Information is updated";
     },
-    deleteParcelLocally() {
-      localStorage.removeItem(this.parcel.trackingCode);
-      this.snackbar = true;
-      this.snackbarMessage = "Parcel is deleted";
+    deleteParcel() {
+      if (this.isAuthorized === true) {
+        this.$http.delete("http://localhost:8080/user/deleteParcel/" + this.user.id + "/" + this.parcel.id, {headers: {Authorization: "Bearer " + this.user.token}})
+            .then(() => {
+            }, () => {
+              this.snackbar = true;
+              this.snackbarMessage = "Parcel is not in tracking list";
+            })
+        let parcel = this.parcel;
+        eventBus.$emit("deleteFromParcelList", parcel);
+        this.snackbar = true;
+        this.snackbarMessage = "Parcel is deleted";
+      } else {
+        localStorage.removeItem(this.parcel.trackingCode);
+        this.snackbar = true;
+        this.snackbarMessage = "Parcel is deleted";
+      }
+      eventBus.$emit("hideParcelInfo");
     },
     getDateInString(date) {
       return new Date(date).toLocaleDateString();
@@ -130,10 +172,44 @@ export default {
       } else {
         return false;
       }
+    },
+    addParcelToList() {
+      if (this.isAuthorized === true) {
+        this.$http.post("http://localhost:8080/user/addParcel/" + this.user.id + "/" + this.parcel.id, this.parcel, {headers: {Authorization: "Bearer " + this.user.token}})
+            .then(() => {
+              this.name = this.parcel.trackingCode;
+              this.parcelName = this.parcel.trackingCode;
+            }, () => {
+              this.snackbar = true;
+              this.snackbarMessage = "Parcel is already in a tracking list";
+            })
+        eventBus.$emit("addParcelToList", this.parcel);
+        eventBus.$emit("getLastFromParcelList", this.parcel);
+        this.snackbar = true;
+        this.snackbarMessage = "Parcel is added to a tracking list";
+      } else {
+        this.snackbar = true;
+        this.snackbarMessage = "Please, sign in to add parcel to a tracking list";
+      }
+    },
+    editName() {
+      this.edit = false;
+      eventBus.$emit("checkIfInParcelList", this.parcel);
+      if (this.existsInList === true) {
+        if (this.name != 0 && this.name != this.parcelName) {
+          this.$http.post("http://localhost:8080/user/addName/" + this.user.id + "/" + this.parcel.id + "/" + this.name, "", {headers: {Authorization: "Bearer " + this.user.token}});
+          eventBus.$emit("editName", this.parcel.trackingCode, this.name)
+          eventBus.$emit("setParcelName", this.name);
+        }
+      } else {
+        eventBus.$emit("setParcelName", this.name);
+      }
+    },
+    getParcelName() {
+      this.name = this.parcelName;
     }
   }
 }
-
 </script>
 
 <style scoped>

@@ -1,5 +1,6 @@
 package com.trackpack.app.keys;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.Embeddable;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Embeddable
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class UserParcelKey implements Serializable {
 

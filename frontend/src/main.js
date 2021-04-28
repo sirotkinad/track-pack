@@ -10,6 +10,7 @@ Vue.use(VueResource)
 Vue.use(VueLocalStorage)
 Vue.config.productionTip = false
 
+export const eventBus = new Vue()
 
 new Vue({
     vuetify,
