@@ -5,7 +5,8 @@
         <v-col cols="1" align="center" align-self="center">
           <v-icon color="blue" @click="(event) => refresh(event)"> mdi-refresh</v-icon>
         </v-col>
-        <v-col v-if="isAuthorized === true" cols="5" align-self="center" align="start">
+        <v-col v-if="isAuthorized === true" @mouseover="editNameHover = true" @mouseleave="editNameHover = false"
+               cols="5" align-self="center" align="start">
           <span v-if="edit === false">{{ getParcelName() }} {{ this.name }}</span>
           <input v-if="edit === true" v-model.trim="name" style="width:130px"
                  @blur="editName()"
@@ -13,18 +14,18 @@
                  @keyup.escape="edit = false"
                  placeholder="Parcel name">
           , {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
-          <v-icon color="blue" @click="edit = true">mdi-pencil</v-icon>
+          <v-icon v-if="editNameHover" color="blue" @click="edit = true">mdi-pencil</v-icon>
         </v-col>
         <v-col v-else cols="5" class="black--text" style="font-size:1rem" align-self="center">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
-          <v-card v-if="hover" style="font-size:0.7rem" @mouseleave="hover = false">
+          <v-card v-if="dateLoadedHover" style="font-size:0.7rem" @mouseleave="dateLoadedHover = false">
             Information was loaded {{ getDateInString(parcel.lastUpdateDate) }}
             {{ getTimeInString(parcel.lastUpdateDate) }}
           </v-card>
-          <v-chip v-if="outdated === true && hover === false"
-                  class="ma-2" color="blue" text-color="white" small @mouseover="hover = true">
+          <v-chip v-if="outdated === true && dateLoadedHover === false"
+                  class="ma-2" color="blue" text-color="white" small @mouseover="dateLoadedHover = true">
             Outdated: {{ getOutdated(parcel.lastUpdateDate) }}
           </v-chip>
         </v-col>
@@ -69,7 +70,7 @@
                              color="blue"
                              small>
               <v-row class="pt-1">
-                <v-col cols="3">
+                <v-col cols="2">
                   <strong>{{ getDateInString(checkPoint.date) }} </strong>
                   <div class="grey--text">
                     {{ getTimeInString(checkPoint.date) }}
@@ -108,7 +109,8 @@ export default {
       snackbar: false,
       snackbarMessage: "",
       timeout: 3000,
-      hover: false,
+      dateLoadedHover: false,
+      editNameHover: false,
       outdated: this.setOutdated(this.parcel.lastUpdateDate),
       edit: false,
       name: "",
