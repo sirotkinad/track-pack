@@ -16,7 +16,7 @@ public class GeoLocation {
     @GeneratedValue
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "GeoLocation's name should not be a null value")
     private String name;
 
     private String type;

@@ -1,13 +1,16 @@
 package com.trackpack.app.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import com.trackpack.app.exceptions.ResourceNotFoundException;
 import com.trackpack.app.model.tracking.*;
 import com.trackpack.app.service.ShipmentTrackingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
-
 import java.util.*;
 
 @CrossOrigin("*")
@@ -24,7 +27,7 @@ public class ShipmentTrackingController {
     @GetMapping("/tracking")
     public ResponseEntity<List<ShipmentTracking>> getAll() {
         List<ShipmentTracking> parcels = service.findAll();
-        if(parcels.isEmpty()){
+        if (parcels.isEmpty()) {
             throw new ResourceNotFoundException("Parcel list is empty");
         }
         return ResponseEntity.ok().body(parcels);
@@ -53,7 +56,7 @@ public class ShipmentTrackingController {
 
 
     @PatchMapping("/tracking/{id}")
-    public ResponseEntity<ShipmentTracking> updateById(@PathVariable(value = "id") UUID id, @RequestBody Map<String, Object> changes) {
+    public ResponseEntity<ShipmentTracking> updateById(@PathVariable(value = "id") UUID id, @Valid @RequestBody Map<String, Object> changes) {
         ShipmentTracking shipmentTracking = service.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Parcel with id " + id + " is not found"));
         service.update(id, changes);
@@ -70,7 +73,7 @@ public class ShipmentTrackingController {
 
     @PatchMapping("/tracking/deliveryDate/{id}")
     public ResponseEntity<ShipmentTracking> updateEstimatedDeliveryDate(@PathVariable(value = "id") UUID id,
-                                                            @RequestBody OffsetDateTime estimatedDeliveryDate) {
+                                                                        @RequestBody OffsetDateTime estimatedDeliveryDate) {
         ShipmentTracking shipmentTracking = service.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Parcel with id " + id + " is not found"));
         service.updateEstimatedDeliveryDate(id, estimatedDeliveryDate);
@@ -79,11 +82,11 @@ public class ShipmentTrackingController {
 
     @PatchMapping("/tracking/status/{id}")
     public ResponseEntity<ShipmentTracking> updateStatusInfo(@PathVariable(value = "id") UUID id,
-                                                 @RequestBody Map<String, Object> statusInfo) {
+                                                             @RequestBody Map<String, Object> statusInfo) {
         ShipmentTracking shipmentTracking = service.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Parcel with id " + id + " is not found"));
         String status = (String) statusInfo.get("status");
-        OffsetDateTime statusChangeDate = OffsetDateTime.parse((String)statusInfo.get("statusChangeDate"));
+        OffsetDateTime statusChangeDate = OffsetDateTime.parse((String) statusInfo.get("statusChangeDate"));
         String statusChangeReason = (String) statusInfo.get("statusChangeReason");
         service.updateStatusInfo(id, status, statusChangeDate, statusChangeReason);
         return ResponseEntity.ok().body(shipmentTracking);
@@ -114,7 +117,7 @@ public class ShipmentTrackingController {
     }
 
     @GetMapping("/tracking/trackingCode/{trackingCode}")
-    public ResponseEntity<ShipmentTracking> getById(@PathVariable(value = "trackingCode") String trackingCode) {
+    public ResponseEntity<ShipmentTracking> getByTrackingCode(@PathVariable(value = "trackingCode") String trackingCode) {
         ShipmentTracking shipmentTracking = service.findByTrackingCode(trackingCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Parcel with tracking code " + trackingCode + " is not found"));
         return ResponseEntity.ok().body(shipmentTracking);
@@ -127,4 +130,28 @@ public class ShipmentTrackingController {
         return service.getStatisticsSize(id);
     }
 
+    @PatchMapping(path = "/tracking/update/{id}", consumes = "application/merge-patch+json")
+    public ResponseEntity<ShipmentTracking> updateWithPatch(@PathVariable(value = "id") UUID id, @Valid @RequestBody JsonMergePatch patch) {
+            ShipmentTracking shipmentTracking = service.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Parcel with tracking code " + id + " is not found"));
+            try {
+                return ResponseEntity.ok().body(service.patch(patch, shipmentTracking));
+            } catch(JsonPatchException | JsonProcessingException e) {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

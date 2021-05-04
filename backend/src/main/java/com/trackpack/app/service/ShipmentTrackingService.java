@@ -1,11 +1,17 @@
 package com.trackpack.app.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import com.trackpack.app.model.tracking.Address;
 import com.trackpack.app.model.tracking.CheckPoint;
 import com.trackpack.app.model.tracking.ShipmentTracking;
 import com.trackpack.app.repository.DeliveryStatisticsRepository;
 import com.trackpack.app.repository.ShipmentTrackingRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.*;
 import java.util.*;
 
@@ -14,10 +20,12 @@ public class ShipmentTrackingService {
 
     private final ShipmentTrackingRepository repository;
     private final DeliveryStatisticsRepository deliveryRepository;
+    private final ObjectMapper objectMapper;
 
-    public ShipmentTrackingService(ShipmentTrackingRepository repository, DeliveryStatisticsRepository deliveryRepository) {
+    public ShipmentTrackingService(ShipmentTrackingRepository repository, DeliveryStatisticsRepository deliveryRepository, ObjectMapper objectMapper) {
         this.repository = repository;
         this.deliveryRepository = deliveryRepository;
+        this.objectMapper = objectMapper;
     }
 
     public List<ShipmentTracking> findAll() {
@@ -28,6 +36,7 @@ public class ShipmentTrackingService {
         return repository.findById(id);
     }
 
+    @Transactional
     public void add(ShipmentTracking shipmentTracking) {
         repository.save(shipmentTracking);
     }
@@ -36,14 +45,17 @@ public class ShipmentTrackingService {
         return repository.findByTrackingCode(trackingCode);
     }
 
+    @Transactional
     public void delete(ShipmentTracking shipmentTracking) {
         repository.delete(shipmentTracking);
     }
 
+    @Transactional
     public void deleteById(UUID id) {
         repository.deleteById(id);
     }
 
+    @Transactional
     public void addCheckpoint(UUID id, CheckPoint checkPoint) {
         ShipmentTracking shipmentTracking = findById(id).get();
         List<CheckPoint> checkPoints = shipmentTracking.getCheckPoints();
@@ -54,6 +66,7 @@ public class ShipmentTrackingService {
         repository.save(shipmentTracking);
     }
 
+    @Transactional
     public void updateStatusInfo(UUID id, String status, OffsetDateTime statusChangeDate, String statusChangeReason) {
         ShipmentTracking shipmentTracking = findById(id).get();
         if (status != null) {
@@ -64,30 +77,35 @@ public class ShipmentTrackingService {
         repository.save(shipmentTracking);
     }
 
+    @Transactional
     public void updateEstimatedDeliveryDate(UUID id, OffsetDateTime estimatedDeliveryDate) {
         ShipmentTracking shipmentTracking = findById(id).get();
         shipmentTracking.setEstimatedDeliveryDate(estimatedDeliveryDate);
         repository.save(shipmentTracking);
     }
 
+    @Transactional
     public void updateAddressFrom(UUID id, Address addressFrom) {
         ShipmentTracking shipmentTracking = findById(id).get();
         shipmentTracking.setAddressFrom(addressFrom);
         repository.save(shipmentTracking);
     }
 
+    @Transactional
     public void updateAddressTo(UUID id, Address addressTo) {
         ShipmentTracking shipmentTracking = findById(id).get();
         shipmentTracking.setAddressTo(addressTo);
         repository.save(shipmentTracking);
     }
 
+    @Transactional
     public void updateCheckPoints(UUID id, List<CheckPoint> checkPoints) {
         ShipmentTracking shipmentTracking = findById(id).get();
         shipmentTracking.setCheckPoints(checkPoints);
         repository.save(shipmentTracking);
     }
 
+    @Transactional
     public void update(UUID id, Map<String, Object> changes) {
         ShipmentTracking shipmentTracking = findById(id).get();
         changes.forEach((field, value) -> {
@@ -153,6 +171,14 @@ public class ShipmentTrackingService {
             return deliveryService.findByCities(cityFrom, cityTo).get().getParcelAmount();
         }
         return 0;
+    }
+
+    @Transactional
+    public ShipmentTracking patch(JsonMergePatch patch, ShipmentTracking toBeUpdated) throws JsonPatchException, JsonProcessingException {
+        JsonNode patched = patch.apply(objectMapper.convertValue(toBeUpdated, JsonNode.class));
+        ShipmentTracking updated = objectMapper.treeToValue(patched, ShipmentTracking.class);
+        add(updated);
+        return updated;
     }
 
 }

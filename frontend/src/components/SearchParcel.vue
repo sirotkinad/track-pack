@@ -114,6 +114,7 @@ export default {
       handler() {
         if (this.isAuthorized === false) {
           localStorage.setItem(this.parcel.trackingCode, JSON.stringify(this.parcel));
+          localStorage.setItem("lastParcel", JSON.stringify(this.parcel))
         }
       }
     }
@@ -178,7 +179,7 @@ export default {
       )
     },
     getLastFromCache() {
-      return JSON.parse(localStorage.getItem(localStorage.key(0)))
+        return JSON.parse(localStorage.getItem("lastParcel"));
     }
   }
 }

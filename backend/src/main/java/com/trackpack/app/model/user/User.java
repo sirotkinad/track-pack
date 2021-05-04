@@ -17,16 +17,16 @@ public class User {
     @GeneratedValue
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "First name should not be a null value")
     private String firstName;
 
-    @NotNull
+    @NotNull(message = "Last name should not be a null value")
     private String lastName;
 
-    @NotNull
+    @NotNull(message = "Email should not be a null value")
     private String email;
 
-    @NotNull
+    @NotNull(message = "Password should not be a null value")
     private String password;
 
     public User(String firstName, String lastName, String email, String password) {

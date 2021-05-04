@@ -19,10 +19,10 @@ public class GeoPoint {
     private UUID id;
     private String accuracy;
 
-    @NotNull
+    @NotNull(message = "Latitude should not be a null value")
     private String latitude;
 
-    @NotNull
+    @NotNull(message = "Longitude should not be a null value")
     private String longitude;
 
 }

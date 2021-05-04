@@ -19,22 +19,22 @@ public class DeliveryStatistics {
     @GeneratedValue
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "City should not be a null value")
     @Column(name = "city_from")
     private String cityFrom;
 
-    @NotNull
+    @NotNull(message = "City should not be a null value")
     @Column(name = "city_to")
     private String cityTo;
 
-    @NotNull
+    @NotNull(message = "Parcel amount should not be a null value")
     @Min(value = 0, message = "Amount should not be a negative value")
     private int parcelAmount;
 
-    @NotNull
+    @NotNull(message = "Average delivery time should not be a null value")
     private double averageDeliveryTime;
 
-    @NotNull
+    @NotNull(message = "Last update date should not be a null value")
     private OffsetDateTime lastUpdateDate;
 
     public DeliveryStatistics(String cityFrom, String cityTo, int parcelAmount, double averageDeliveryTime, OffsetDateTime lastUpdateDate) {

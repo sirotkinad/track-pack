@@ -18,15 +18,6 @@ public class UserParcel {
     @EmbeddedId
     UserParcelKey id;
 
-   /* @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
-    User user;
-
-    @ManyToOne
-    @MapsId("parcelId")
-    @JoinColumn(name = "parcel_id")
-    ShipmentTracking parcel;*/
     private String parcelName;
 
     private OffsetDateTime addDate;
