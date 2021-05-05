@@ -132,13 +132,13 @@ public class ShipmentTrackingController {
 
     @PatchMapping(path = "/tracking/update/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<ShipmentTracking> updateWithPatch(@PathVariable(value = "id") UUID id, @Valid @RequestBody JsonMergePatch patch) {
-            ShipmentTracking shipmentTracking = service.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Parcel with tracking code " + id + " is not found"));
-            try {
-                return ResponseEntity.ok().body(service.patch(patch, shipmentTracking));
-            } catch(JsonPatchException | JsonProcessingException e) {
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-            }
+        ShipmentTracking shipmentTracking = service.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Parcel with tracking code " + id + " is not found"));
+        try {
+            return ResponseEntity.ok().body(service.patch(patch, shipmentTracking));
+        } catch (JsonPatchException | JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
     }
 
 }
