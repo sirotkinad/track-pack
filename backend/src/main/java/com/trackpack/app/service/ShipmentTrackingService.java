@@ -39,9 +39,6 @@ public class ShipmentTrackingService {
 
     @Transactional
     public void add(ShipmentTracking shipmentTracking) {
-        if(findByTrackingCode(shipmentTracking.getTrackingCode()).isPresent()) {
-            throw new ResourceAlreadyExistsException("Parcel with tracking code " + shipmentTracking.getTrackingCode() + " already exists");
-        }
         repository.save(shipmentTracking);
     }
 

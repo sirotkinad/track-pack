@@ -1,0 +1,559 @@
+{
+	"info": {
+		"_postman_id": "ea5753bc-a995-4529-b6f8-986b068d115e",
+		"name": "track-pack-application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Shipment tracking",
+			"item": [
+				{
+					"name": "Get all parcels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parcel by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"description": "\n",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete parcel by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new parcel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"carrier\": \"SDA\",\r\n \"trackingCode\": \"AAAAXXXX777\",\r\n \"trackingDate\": \"2017-12-07T14:19:11.460Z\",\r\n \"status\": \"shipped\",\r\n \"statusChangeDate\": \"2017-12-10T14:19:11.460Z\",\r\n \"weight\": 100.0,\r\n \"estimatedDeliveryDate\": \"2017-12-16T14:19:11.460Z\",\r\n \"addressFrom\": {\r\n \"streetNr\": \"5\",\r\n \"streetName\": \"Wall Street\",\r\n \"streetType\": \"street\",\r\n \"postcode\": \"12345\",\r\n \"city\": \"New York\",\r\n \"stateOrProvince\": \"New York\",\r\n \"country\": \"USA\"\r\n },\r\n \"addressTo\": {\r\n \"streetNr\": \"10\",\r\n \"streetName\": \"Richelieu\",\r\n \"streetType\": \"avenue\",\r\n \"postcode\": \"11111\",\r\n \"city\": \"Paris\",\r\n \"stateOrProvince\": \"Paris\",\r\n \"country\": \"France\"\r\n },\r\n \"checkPoints\": [\r\n {\r\n \"status\": \"shipped\",\r\n \"message\": \"Shipped from warehouse facilities\",\r\n \"date\": \"2017-11-05T14:19:11.460Z\",\r\n \"checkPost\": \"Springfield warehouse\",\r\n \"city\": \"Springfield\",\r\n \"stateOrProvince\": \"Oregon\",\r\n \"country\": \"USA\",\r\n \"postcode\": \"87654\"\r\n },\r\n {\r\n \"status\": \"in progress\",\r\n \"message\": \"Arrived at Dallas to be shipped by plane\",\r\n \"date\": \"2017-11-07T14:19:11.460Z\",\r\n \"checkPost\": \"Dallas airport\",\r\n \"city\": \"Dallas\",\r\n \"stateOrProvince\": \"Texas\",\r\n \"country\": \"USA\",\r\n \"postcode\": \"75261\"\r\n }\r\n ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  parcel",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/merge-patch+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"weight\": 10.0,\r\n    \"addressFrom\": {\r\n        \"streetNr\": \"5\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/update/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"update",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add checkPoint to a parcel",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n \"status\": \"in customs\",\r\n \"message\": \"Arrived at Madrid airport customs office\",\r\n \"date\": \"2017-11-10T14:19:11.460Z\",\r\n \"checkPost\": \"Madrid Barajas airport\",\r\n \"city\": \"Madrid\",\r\n \"stateOrProvince\": \"Madrid\",\r\n \"country\": \"ESP\",\r\n \"postcode\": \"28042\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/checkpoint/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"checkpoint",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update parcel's delivery date",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\"2018-01-16T17:19:11.46+03:00\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/deliveryDate/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"deliveryDate",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update parcel's \"address from\"",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"streetNr\": \"10\",\r\n \"streetName\": \"Evergreen Terrace\",\r\n \"streetType\": \"street\",\r\n \"postcode\": \"88888\",\r\n \"city\": \"Springfield\",\r\n \"stateOrProvince\": \"Oregon\",\r\n \"country\": \"USA\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/addressFrom/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"addressFrom",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update parcel's \"address to\"",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n \"streetNr\": \"5\",\r\n \"streetName\": \"Times Square\",\r\n \"streetType\": \"street\",\r\n \"postcode\": \"11111\",\r\n \"city\": \"New York\",\r\n \"stateOrProvince\": \"New York\",\r\n \"country\": \"USA\"\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/addressTo/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"addressTo",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update parcel's status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\"status\": \"shipped\",\r\n\"statusChangeDate\": \"2021-11-03T10:15:30+02:00\",\r\n\"statusChangeReason\": \"shipped\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/status/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"status",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parcel by not actual id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/track-pack/tracking/f00b15b0-82a1-4784-94da-2eaa1d2566c5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"track-pack",
+								"tracking",
+								"f00b15b0-82a1-4784-94da-2eaa1d2566c5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SignIn/SignUp",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"aaa\", \r\n    \"lastName\": \"bbb\",\r\n     \"email\": \"aa@mail.ru\",\r\n     \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/signUp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"email\": \"aa@mail.ru\",\r\n     \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/signIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserParcel",
+			"item": [
+				{
+					"name": "Get user's parcels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/parcels/241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"parcels",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parcel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/addParcel/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"addParcel",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/deleteParcel/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"deleteParcel",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parcel's name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/addName/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f/name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"addName",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f",
+								"name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parcel's name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/getName/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"getName",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
