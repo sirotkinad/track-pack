@@ -39,6 +39,9 @@ public class ShipmentTrackingService {
 
     @Transactional
     public void add(ShipmentTracking shipmentTracking) {
+        if(findByTrackingCode(shipmentTracking.getTrackingCode()).isPresent()) {
+            throw new ResourceAlreadyExistsException("Parcel with tracking code " + shipmentTracking.getTrackingCode() + " already exists");
+        }
         repository.save(shipmentTracking);
     }
 
@@ -178,7 +181,7 @@ public class ShipmentTrackingService {
     public ShipmentTracking patch(JsonMergePatch patch, ShipmentTracking toBeUpdated) throws JsonPatchException, JsonProcessingException {
         JsonNode patched = patch.apply(objectMapper.convertValue(toBeUpdated, JsonNode.class));
         ShipmentTracking updated = objectMapper.treeToValue(patched, ShipmentTracking.class);
-        add(updated);
+        repository.save(updated);
         return updated;
     }
 
