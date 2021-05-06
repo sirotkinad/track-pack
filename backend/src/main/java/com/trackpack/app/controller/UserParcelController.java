@@ -18,7 +18,7 @@ public class UserParcelController {
         this.service = service;
     }
 
-    @GetMapping("parcels/{userId}")
+    @GetMapping("/parcels/{userId}")
     public ResponseEntity<List<ShipmentTracking>> getParcelsByUserId(@PathVariable(value = "userId") UUID id) {
         return ResponseEntity.ok().body(service.getParcelsByUserId(id));
     }

@@ -181,7 +181,7 @@ public class ShipmentTrackingService {
     public ShipmentTracking patch(JsonMergePatch patch, ShipmentTracking toBeUpdated) throws JsonPatchException, JsonProcessingException {
         JsonNode patched = patch.apply(objectMapper.convertValue(toBeUpdated, JsonNode.class));
         ShipmentTracking updated = objectMapper.treeToValue(patched, ShipmentTracking.class);
-        add(updated);
+        repository.save(updated);
         return updated;
     }
 

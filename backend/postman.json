@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "32c01ffe-c93a-4e14-8c4f-e4a7e0db18a1",
+		"_postman_id": "ea5753bc-a995-4529-b6f8-986b068d115e",
 		"name": "track-pack-application",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -26,54 +26,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Get all parcels",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 05:56:27 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n        \"href\": null,\n        \"carrier\": \"Fodex\",\n        \"trackingCode\": \"FFFFXXXX987\",\n        \"carrierTrackingUrl\": null,\n        \"trackingDate\": \"2017-11-05T17:19:11.46+03:00\",\n        \"status\": \"in customs\",\n        \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n        \"statusChangeReason\": \"Arrived at customs office\",\n        \"weight\": 2500,\n        \"estimatedDeliveryDate\": \"2017-11-16T17:19:11.46+03:00\",\n        \"addressFrom\": {\n            \"id\": \"4fe0d72b-cc19-45a9-8950-f5504f440e7d\",\n            \"streetNr\": \"3\",\n            \"streetNrSuffix\": null,\n            \"streetNrLast\": null,\n            \"streetNrLastSuffix\": null,\n            \"streetName\": \"Evergreen Terrace\",\n            \"streetType\": \"street\",\n            \"streetSuffix\": null,\n            \"postcode\": \"87654\",\n            \"locality\": null,\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\",\n            \"geographicLocation\": null,\n            \"subAddress\": []\n        },\n        \"addressTo\": {\n            \"id\": \"bf001442-c82b-4e1d-8729-7ca251ee3989\",\n            \"streetNr\": \"S/N\",\n            \"streetNrSuffix\": null,\n            \"streetNrLast\": null,\n            \"streetNrLastSuffix\": null,\n            \"streetName\": \"Ronda de la Comunicación\",\n            \"streetType\": \"Calle\",\n            \"streetSuffix\": null,\n            \"postcode\": \"28050\",\n            \"locality\": \"Madrid\",\n            \"city\": \"Madrid\",\n            \"stateOrProvince\": \"Madrid\",\n            \"country\": \"ESP\",\n            \"geographicLocation\": null,\n            \"subAddress\": []\n        },\n        \"checkPoints\": [\n            {\n                \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n                \"status\": \"shipped\",\n                \"message\": \"Shipped from warehouse facilities\",\n                \"date\": \"2017-11-05T17:19:11.46+03:00\",\n                \"checkPost\": \"Springfield warehouse\",\n                \"city\": \"Springfield\",\n                \"stateOrProvince\": \"Oregon\",\n                \"country\": \"USA\"\n            }\n        ]\n    },\n    {\n        \"id\": \"5db57cdb-f8f7-4324-bda7-4882dc99565d\",\n        \"href\": null,\n        \"carrier\": \"SDA\",\n        \"trackingCode\": \"AAAAXXXX777\",\n        \"carrierTrackingUrl\": null,\n        \"trackingDate\": \"2017-12-07T17:19:11.46+03:00\",\n        \"status\": \"shipped\",\n        \"statusChangeDate\": \"2017-12-10T17:19:11.46+03:00\",\n        \"statusChangeReason\": null,\n        \"weight\": 100,\n        \"estimatedDeliveryDate\": \"2017-12-16T17:19:11.46+03:00\",\n        \"addressFrom\": {\n            \"id\": \"1212fffa-19bc-4502-85ee-0a82fb593159\",\n            \"streetNr\": \"5\",\n            \"streetNrSuffix\": null,\n            \"streetNrLast\": null,\n            \"streetNrLastSuffix\": null,\n            \"streetName\": \"Wall Street\",\n            \"streetType\": \"street\",\n            \"streetSuffix\": null,\n            \"postcode\": \"12345\",\n            \"locality\": null,\n            \"city\": \"New York\",\n            \"stateOrProvince\": \"New York\",\n            \"country\": \"USA\",\n            \"geographicLocation\": null,\n            \"subAddress\": []\n        },\n        \"addressTo\": {\n            \"id\": \"abc1b310-ee7d-4f51-9d95-506b217ae87d\",\n            \"streetNr\": \"10\",\n            \"streetNrSuffix\": null,\n            \"streetNrLast\": null,\n            \"streetNrLastSuffix\": null,\n            \"streetName\": \"Richelieu\",\n            \"streetType\": \"avenue\",\n            \"streetSuffix\": null,\n            \"postcode\": \"11111\",\n            \"locality\": null,\n            \"city\": \"Paris\",\n            \"stateOrProvince\": \"Paris\",\n            \"country\": \"France\",\n            \"geographicLocation\": null,\n            \"subAddress\": []\n        },\n        \"checkPoints\": [\n            {\n                \"id\": \"6cc0f30f-dea4-4e69-a6c7-ac4bc7814030\",\n                \"status\": \"shipped\",\n                \"message\": \"Shipped from warehouse facilities\",\n                \"date\": \"2017-11-05T17:19:11.46+03:00\",\n                \"checkPost\": \"Springfield warehouse\",\n                \"city\": \"Springfield\",\n                \"stateOrProvince\": \"Oregon\",\n                \"country\": \"USA\"\n            },\n            {\n                \"id\": \"21f11f4a-93f5-4579-9828-774a44b5be5c\",\n                \"status\": \"in progress\",\n                \"message\": \"Arrived at Dallas to be shipped by plane\",\n                \"date\": \"2017-11-07T17:19:11.46+03:00\",\n                \"checkPost\": \"Dallas airport\",\n                \"city\": \"Dallas\",\n                \"stateOrProvince\": \"Texas\",\n                \"country\": \"USA\"\n            }\n        ]\n    }\n]"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Get parcel by id",
@@ -81,7 +34,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -90,7 +43,7 @@
 							"path": [
 								"track-pack",
 								"tracking",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							],
 							"query": [
 								{
@@ -102,63 +55,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Get parcel by id",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": "",
-											"description": "\n",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 05:57:00 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"Fodex\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2017-11-05T17:19:11.46+03:00\",\n    \"status\": \"in customs\",\n    \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n    \"statusChangeReason\": \"Arrived at customs office\",\n    \"weight\": 2500,\n    \"estimatedDeliveryDate\": \"2017-11-16T17:19:11.46+03:00\",\n    \"addressFrom\": {\n        \"id\": \"4fe0d72b-cc19-45a9-8950-f5504f440e7d\",\n        \"streetNr\": \"3\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"87654\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"addressTo\": {\n        \"id\": \"bf001442-c82b-4e1d-8729-7ca251ee3989\",\n        \"streetNr\": \"S/N\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Ronda de la Comunicación\",\n        \"streetType\": \"Calle\",\n        \"streetSuffix\": null,\n        \"postcode\": \"28050\",\n        \"locality\": \"Madrid\",\n        \"city\": \"Madrid\",\n        \"stateOrProvince\": \"Madrid\",\n        \"country\": \"ESP\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Delete parcel by id",
@@ -166,7 +63,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/5db57cdb-f8f7-4324-bda7-4882dc99565d",
+							"raw": "http://localhost:8080/track-pack/tracking/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -175,55 +72,11 @@
 							"path": [
 								"track-pack",
 								"tracking",
-								"5db57cdb-f8f7-4324-bda7-4882dc99565d"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Delete parcel by id",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/5db57cdb-f8f7-4324-bda7-4882dc99565d",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"5db57cdb-f8f7-4324-bda7-4882dc99565d"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Content-Length",
-									"value": "0"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 05:59:23 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Add new parcel",
@@ -252,72 +105,27 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Add new parcel",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n \"carrier\": \"SDA\",\r\n \"trackingCode\": \"AAAAXXXX777\",\r\n \"trackingDate\": \"2017-12-07T14:19:11.460Z\",\r\n \"status\": \"shipped\",\r\n \"statusChangeDate\": \"2017-12-10T14:19:11.460Z\",\r\n \"weight\": 100.0,\r\n \"estimatedDeliveryDate\": \"2017-12-16T14:19:11.460Z\",\r\n \"addressFrom\": {\r\n \"streetNr\": \"5\",\r\n \"streetName\": \"Wall Street\",\r\n \"streetType\": \"street\",\r\n \"postcode\": \"12345\",\r\n \"city\": \"New York\",\r\n \"stateOrProvince\": \"New York\",\r\n \"country\": \"USA\"\r\n },\r\n \"addressTo\": {\r\n \"streetNr\": \"10\",\r\n \"streetName\": \"Richelieu\",\r\n \"streetType\": \"avenue\",\r\n \"postcode\": \"11111\",\r\n \"city\": \"Paris\",\r\n \"stateOrProvince\": \"Paris\",\r\n \"country\": \"France\"\r\n },\r\n \"checkPoints\": [\r\n {\r\n \"status\": \"shipped\",\r\n \"message\": \"Shipped from warehouse facilities\",\r\n \"date\": \"2017-11-05T14:19:11.460Z\",\r\n \"checkPost\": \"Springfield warehouse\",\r\n \"city\": \"Springfield\",\r\n \"stateOrProvince\": \"Oregon\",\r\n \"country\": \"USA\",\r\n \"postcode\": \"87654\"\r\n },\r\n {\r\n \"status\": \"in progress\",\r\n \"message\": \"Arrived at Dallas to be shipped by plane\",\r\n \"date\": \"2017-11-07T14:19:11.460Z\",\r\n \"checkPost\": \"Dallas airport\",\r\n \"city\": \"Dallas\",\r\n \"stateOrProvince\": \"Texas\",\r\n \"country\": \"USA\",\r\n \"postcode\": \"75261\"\r\n }\r\n ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:00:05 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"72e2a726-83cc-44d8-83fc-418c19e90dc5\",\n    \"href\": null,\n    \"carrier\": \"SDA\",\n    \"trackingCode\": \"AAAAXXXX777\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2017-12-07T14:19:11.46Z\",\n    \"status\": \"shipped\",\n    \"statusChangeDate\": \"2017-12-10T14:19:11.46Z\",\n    \"statusChangeReason\": null,\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2017-12-16T14:19:11.46Z\",\n    \"addressFrom\": {\n        \"id\": \"23328cae-0b2e-4a64-a1b9-917c424bd3c8\",\n        \"streetNr\": \"5\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Wall Street\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"12345\",\n        \"locality\": null,\n        \"city\": \"New York\",\n        \"stateOrProvince\": \"New York\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": null\n    },\n    \"addressTo\": {\n        \"id\": \"36c119f5-f75e-4bcf-9306-59916ff56aa6\",\n        \"streetNr\": \"10\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Richelieu\",\n        \"streetType\": \"avenue\",\n        \"streetSuffix\": null,\n        \"postcode\": \"11111\",\n        \"locality\": null,\n        \"city\": \"Paris\",\n        \"stateOrProvince\": \"Paris\",\n        \"country\": \"France\",\n        \"geographicLocation\": null,\n        \"subAddress\": null\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"11396354-1e34-42b8-aac2-dbb76f073ad3\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T14:19:11.46Z\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        },\n        {\n            \"id\": \"1737c88c-5560-4fb8-ae4d-68bee647ab92\",\n            \"status\": \"in progress\",\n            \"message\": \"Arrived at Dallas to be shipped by plane\",\n            \"date\": \"2017-11-07T14:19:11.46Z\",\n            \"checkPost\": \"Dallas airport\",\n            \"city\": \"Dallas\",\n            \"stateOrProvince\": \"Texas\",\n            \"country\": \"USA\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Update  parcel",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/merge-patch+json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"carrier\": \"TTG\",\r\n    \"weight\": 100.0,\r\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\r\n    \"estimatedDeliveryDate\": \"2021-12-03T12:15:30+03:00\"\r\n}",
+							"raw": "{\r\n    \"weight\": 10.0,\r\n    \"addressFrom\": {\r\n        \"streetNr\": \"5\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -325,7 +133,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/update/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -334,68 +142,12 @@
 							"path": [
 								"track-pack",
 								"tracking",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"update",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Update  parcel",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"carrier\": \"TTG\",\r\n    \"weight\": 100.0,\r\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\r\n    \"estimatedDeliveryDate\": \"2021-12-03T12:15:30+03:00\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:02:24 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"TTG\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\n    \"status\": \"in customs\",\n    \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n    \"statusChangeReason\": \"Arrived at customs office\",\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2021-12-03T12:15:30+03:00\",\n    \"addressFrom\": {\n        \"id\": \"4fe0d72b-cc19-45a9-8950-f5504f440e7d\",\n        \"streetNr\": \"3\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"87654\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"addressTo\": {\n        \"id\": \"bf001442-c82b-4e1d-8729-7ca251ee3989\",\n        \"streetNr\": \"S/N\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Ronda de la Comunicación\",\n        \"streetType\": \"Calle\",\n        \"streetSuffix\": null,\n        \"postcode\": \"28050\",\n        \"locality\": \"Madrid\",\n        \"city\": \"Madrid\",\n        \"stateOrProvince\": \"Madrid\",\n        \"country\": \"ESP\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Add checkPoint to a parcel",
@@ -412,7 +164,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/checkpoint/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/checkpoint/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -422,69 +174,11 @@
 								"track-pack",
 								"tracking",
 								"checkpoint",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Add checkPoint to a parcel",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\r\n{\r\n \"status\": \"in customs\",\r\n \"message\": \"Arrived at Madrid airport customs office\",\r\n \"date\": \"2017-11-10T14:19:11.460Z\",\r\n \"checkPost\": \"Madrid Barajas airport\",\r\n \"city\": \"Madrid\",\r\n \"stateOrProvince\": \"Madrid\",\r\n \"country\": \"ESP\",\r\n \"postcode\": \"28042\"\r\n }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/checkpoint/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"checkpoint",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:03:14 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"TTG\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\n    \"status\": \"in customs\",\n    \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n    \"statusChangeReason\": \"Arrived at customs office\",\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2021-12-03T12:15:30+03:00\",\n    \"addressFrom\": {\n        \"id\": \"4fe0d72b-cc19-45a9-8950-f5504f440e7d\",\n        \"streetNr\": \"3\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"87654\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"addressTo\": {\n        \"id\": \"bf001442-c82b-4e1d-8729-7ca251ee3989\",\n        \"streetNr\": \"S/N\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Ronda de la Comunicación\",\n        \"streetType\": \"Calle\",\n        \"streetSuffix\": null,\n        \"postcode\": \"28050\",\n        \"locality\": \"Madrid\",\n        \"city\": \"Madrid\",\n        \"stateOrProvince\": \"Madrid\",\n        \"country\": \"ESP\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        },\n        {\n            \"id\": \"d7d3945b-6f97-4345-ad1f-f1d62110e702\",\n            \"status\": \"in customs\",\n            \"message\": \"Arrived at Madrid airport customs office\",\n            \"date\": \"2017-11-10T14:19:11.46Z\",\n            \"checkPost\": \"Madrid Barajas airport\",\n            \"city\": \"Madrid\",\n            \"stateOrProvince\": \"Madrid\",\n            \"country\": \"ESP\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Update parcel's delivery date",
@@ -501,7 +195,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/deliveryDate/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/deliveryDate/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -511,69 +205,11 @@
 								"track-pack",
 								"tracking",
 								"deliveryDate",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Update parcel's delivery date",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\r\n\"2018-01-16T17:19:11.46+03:00\"",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/deliveryDate/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"deliveryDate",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:05:29 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"TTG\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\n    \"status\": \"in customs\",\n    \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n    \"statusChangeReason\": \"Arrived at customs office\",\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2018-01-16T14:19:11.46Z\",\n    \"addressFrom\": {\n        \"id\": \"4fe0d72b-cc19-45a9-8950-f5504f440e7d\",\n        \"streetNr\": \"3\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"87654\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"addressTo\": {\n        \"id\": \"bf001442-c82b-4e1d-8729-7ca251ee3989\",\n        \"streetNr\": \"S/N\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Ronda de la Comunicación\",\n        \"streetType\": \"Calle\",\n        \"streetSuffix\": null,\n        \"postcode\": \"28050\",\n        \"locality\": \"Madrid\",\n        \"city\": \"Madrid\",\n        \"stateOrProvince\": \"Madrid\",\n        \"country\": \"ESP\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        },\n        {\n            \"id\": \"d7d3945b-6f97-4345-ad1f-f1d62110e702\",\n            \"status\": \"in customs\",\n            \"message\": \"Arrived at Madrid airport customs office\",\n            \"date\": \"2017-11-10T17:19:11.46+03:00\",\n            \"checkPost\": \"Madrid Barajas airport\",\n            \"city\": \"Madrid\",\n            \"stateOrProvince\": \"Madrid\",\n            \"country\": \"ESP\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Update parcel's \"address from\"",
@@ -590,7 +226,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/addressFrom/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/addressFrom/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -600,69 +236,11 @@
 								"track-pack",
 								"tracking",
 								"addressFrom",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Update parcel's \"address from\"",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n \"streetNr\": \"10\",\r\n \"streetName\": \"Evergreen Terrace\",\r\n \"streetType\": \"street\",\r\n \"postcode\": \"88888\",\r\n \"city\": \"Springfield\",\r\n \"stateOrProvince\": \"Oregon\",\r\n \"country\": \"USA\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/addressFrom/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"addressFrom",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:06:42 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"TTG\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\n    \"status\": \"in customs\",\n    \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n    \"statusChangeReason\": \"Arrived at customs office\",\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2018-01-16T17:19:11.46+03:00\",\n    \"addressFrom\": {\n        \"id\": \"8f3322ff-9c6a-446e-9239-44356e38e822\",\n        \"streetNr\": \"10\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"88888\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": null\n    },\n    \"addressTo\": {\n        \"id\": \"bf001442-c82b-4e1d-8729-7ca251ee3989\",\n        \"streetNr\": \"S/N\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Ronda de la Comunicación\",\n        \"streetType\": \"Calle\",\n        \"streetSuffix\": null,\n        \"postcode\": \"28050\",\n        \"locality\": \"Madrid\",\n        \"city\": \"Madrid\",\n        \"stateOrProvince\": \"Madrid\",\n        \"country\": \"ESP\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        },\n        {\n            \"id\": \"d7d3945b-6f97-4345-ad1f-f1d62110e702\",\n            \"status\": \"in customs\",\n            \"message\": \"Arrived at Madrid airport customs office\",\n            \"date\": \"2017-11-10T17:19:11.46+03:00\",\n            \"checkPost\": \"Madrid Barajas airport\",\n            \"city\": \"Madrid\",\n            \"stateOrProvince\": \"Madrid\",\n            \"country\": \"ESP\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Update parcel's \"address to\"",
@@ -679,7 +257,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/addressTo/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/addressTo/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -689,69 +267,11 @@
 								"track-pack",
 								"tracking",
 								"addressTo",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Update parcel's \"address to\"",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": " {\r\n \"streetNr\": \"5\",\r\n \"streetName\": \"Times Square\",\r\n \"streetType\": \"street\",\r\n \"postcode\": \"11111\",\r\n \"city\": \"New York\",\r\n \"stateOrProvince\": \"New York\",\r\n \"country\": \"USA\"\r\n }\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/addressTo/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"addressTo",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:08:04 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"TTG\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\n    \"status\": \"in customs\",\n    \"statusChangeDate\": \"2017-11-10T17:19:11.46+03:00\",\n    \"statusChangeReason\": \"Arrived at customs office\",\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2018-01-16T17:19:11.46+03:00\",\n    \"addressFrom\": {\n        \"id\": \"8f3322ff-9c6a-446e-9239-44356e38e822\",\n        \"streetNr\": \"10\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"88888\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"addressTo\": {\n        \"id\": \"a8e7af5e-cbc5-4bf0-a3a0-12c8cdc11b50\",\n        \"streetNr\": \"5\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Times Square\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"11111\",\n        \"locality\": null,\n        \"city\": \"New York\",\n        \"stateOrProvince\": \"New York\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": null\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        },\n        {\n            \"id\": \"d7d3945b-6f97-4345-ad1f-f1d62110e702\",\n            \"status\": \"in customs\",\n            \"message\": \"Arrived at Madrid airport customs office\",\n            \"date\": \"2017-11-10T17:19:11.46+03:00\",\n            \"checkPost\": \"Madrid Barajas airport\",\n            \"city\": \"Madrid\",\n            \"stateOrProvince\": \"Madrid\",\n            \"country\": \"ESP\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Update parcel's status",
@@ -768,7 +288,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/track-pack/tracking/status/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
+							"raw": "http://localhost:8080/track-pack/tracking/status/31ffd176-d210-46bb-9e28-27f9a2827c8f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -778,69 +298,11 @@
 								"track-pack",
 								"tracking",
 								"status",
-								"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Update parcel's status",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{  \r\n\"status\": \"shipped\",\r\n\"statusChangeDate\": \"2021-11-03T10:15:30+02:00\",\r\n\"statusChangeReason\": \"shipped\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/status/d00b15b0-82a1-4784-94da-2eaa1d2566c4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"status",
-										"d00b15b0-82a1-4784-94da-2eaa1d2566c4"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:08:39 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"d00b15b0-82a1-4784-94da-2eaa1d2566c4\",\n    \"href\": null,\n    \"carrier\": \"TTG\",\n    \"trackingCode\": \"FFFFXXXX987\",\n    \"carrierTrackingUrl\": null,\n    \"trackingDate\": \"2021-11-03T12:15:30+03:00\",\n    \"status\": \"shipped\",\n    \"statusChangeDate\": \"2021-11-03T10:15:30+02:00\",\n    \"statusChangeReason\": \"shipped\",\n    \"weight\": 100,\n    \"estimatedDeliveryDate\": \"2018-01-16T17:19:11.46+03:00\",\n    \"addressFrom\": {\n        \"id\": \"8f3322ff-9c6a-446e-9239-44356e38e822\",\n        \"streetNr\": \"10\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Evergreen Terrace\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"88888\",\n        \"locality\": null,\n        \"city\": \"Springfield\",\n        \"stateOrProvince\": \"Oregon\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"addressTo\": {\n        \"id\": \"a8e7af5e-cbc5-4bf0-a3a0-12c8cdc11b50\",\n        \"streetNr\": \"5\",\n        \"streetNrSuffix\": null,\n        \"streetNrLast\": null,\n        \"streetNrLastSuffix\": null,\n        \"streetName\": \"Times Square\",\n        \"streetType\": \"street\",\n        \"streetSuffix\": null,\n        \"postcode\": \"11111\",\n        \"locality\": null,\n        \"city\": \"New York\",\n        \"stateOrProvince\": \"New York\",\n        \"country\": \"USA\",\n        \"geographicLocation\": null,\n        \"subAddress\": []\n    },\n    \"checkPoints\": [\n        {\n            \"id\": \"72a0aaa8-f4ed-461b-964f-e90e848a8a2e\",\n            \"status\": \"shipped\",\n            \"message\": \"Shipped from warehouse facilities\",\n            \"date\": \"2017-11-05T17:19:11.46+03:00\",\n            \"checkPost\": \"Springfield warehouse\",\n            \"city\": \"Springfield\",\n            \"stateOrProvince\": \"Oregon\",\n            \"country\": \"USA\"\n        },\n        {\n            \"id\": \"d7d3945b-6f97-4345-ad1f-f1d62110e702\",\n            \"status\": \"in customs\",\n            \"message\": \"Arrived at Madrid airport customs office\",\n            \"date\": \"2017-11-10T17:19:11.46+03:00\",\n            \"checkPost\": \"Madrid Barajas airport\",\n            \"city\": \"Madrid\",\n            \"stateOrProvince\": \"Madrid\",\n            \"country\": \"ESP\"\n        }\n    ]\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Get parcel by not actual id",
@@ -861,55 +323,235 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Get parcel by not actual id",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/track-pack/tracking/f00b15b0-82a1-4784-94da-2eaa1d2566c5",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"track-pack",
-										"tracking",
-										"f00b15b0-82a1-4784-94da-2eaa1d2566c5"
-									]
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SignIn/SignUp",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"aaa\", \r\n    \"lastName\": \"bbb\",\r\n     \"email\": \"aa@mail.ru\",\r\n     \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 17 Mar 2021 06:09:40 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/signUp",
+							"protocol": "http",
+							"host": [
+								"localhost"
 							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Parcel with id f00b15b0-82a1-4784-94da-2eaa1d2566c5 is not found\"\n}"
+							"port": "8080",
+							"path": [
+								"auth",
+								"signUp"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"email\": \"aa@mail.ru\",\r\n     \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/signIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserParcel",
+			"item": [
+				{
+					"name": "Get user's parcels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/parcels/241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"parcels",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parcel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/addParcel/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"addParcel",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/deleteParcel/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"deleteParcel",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parcel's name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/addName/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f/name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"addName",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f",
+								"name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parcel's name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYUBtYWlsLnJ1IiwiaWF0IjoxNjIwMjk2MzQ3LCJleHAiOjE2MjI4ODgzNDd9.364W8uTdWuxILPld6c3LHW_pJkScQiX5SSk2cwqwj48RvejeMT_ko7qA0UUBRTKvk5q-IapoEpNztGDRpAQxyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/getName/241aeb6f-3f95-4e78-9392-c02bcb19d0b1/31ffd176-d210-46bb-9e28-27f9a2827c8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"getName",
+								"241aeb6f-3f95-4e78-9392-c02bcb19d0b1",
+								"31ffd176-d210-46bb-9e28-27f9a2827c8f"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
