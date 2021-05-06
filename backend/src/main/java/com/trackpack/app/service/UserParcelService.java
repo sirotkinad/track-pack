@@ -8,6 +8,7 @@ import com.trackpack.app.model.tracking.ShipmentTracking;
 import com.trackpack.app.repository.ShipmentTrackingRepository;
 import com.trackpack.app.repository.UserParcelRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class UserParcelService {
         this.parcelRepository = parcelRepository;
     }
 
+    @Transactional
     public void addParcelForUser(UUID userId, UUID parcelId) {
         UserParcelKey id = new UserParcelKey(userId, parcelId);
         if(repository.existsById(id)){
@@ -32,6 +34,7 @@ public class UserParcelService {
         repository.save(userParcel);
     }
 
+    @Transactional
     public void deleteParcelFromUser(UUID userId, UUID parcelId) {
         UserParcelKey id = new UserParcelKey(userId, parcelId);
         if(repository.existsById(id)){
@@ -42,6 +45,7 @@ public class UserParcelService {
         }
     }
 
+    @Transactional
     public void setParcelName(UUID userId, UUID parcelId, String name) {
         UserParcelKey id = new UserParcelKey(userId, parcelId);
         UserParcel userParcel = repository.findById(id)

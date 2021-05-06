@@ -1,6 +1,5 @@
 package com.trackpack.app.controller;
 
-import com.trackpack.app.model.joining.UserParcel;
 import com.trackpack.app.model.tracking.ShipmentTracking;
 import com.trackpack.app.service.UserParcelService;
 import org.springframework.http.ResponseEntity;

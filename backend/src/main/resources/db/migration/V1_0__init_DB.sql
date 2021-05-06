@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 CREATE TABLE IF NOT EXISTS users
 (
     id         UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
@@ -60,7 +62,7 @@ CREATE TABLE IF NOT EXISTS shipment_tracking
     id                      UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
     href                    VARCHAR(50),
     carrier                 VARCHAR(50),
-    tracking_code           VARCHAR(50)      NOT NULL,
+    tracking_code           VARCHAR(50)      NOT NULL UNIQUE,
     carrier_tracking_url    VARCHAR(50),
     tracking_date           TIMESTAMPTZ      NOT NULL,
     status                  VARCHAR(50)      NOT NULL,

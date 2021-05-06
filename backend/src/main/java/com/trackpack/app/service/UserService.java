@@ -26,9 +26,4 @@ public class UserService {
         return repository.findByEmail(email);
     }
 
-    public void updatePassword(String email, String password) {
-        User user = findByEmail(email).get();
-        user.setPassword(passwordEncoder.encode(password));
-    }
-
 }

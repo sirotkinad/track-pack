@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/auth")
@@ -32,7 +33,6 @@ public class AuthController {
         this.jwtProvider = jwtProvider;
     }
 
-
     @PostMapping("/signIn")
     public ResponseEntity<RegisteredUser> signIn(@Valid @RequestBody RegisteredUser registeredUser) {
         Authentication authentication = authenticationManager.authenticate(
@@ -45,13 +45,13 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<User> signUp(@Valid @RequestBody NewUser newUser) {
+    public ResponseEntity<Void> signUp(@Valid @RequestBody NewUser newUser) {
         if(userService.findByEmail(newUser.getEmail()).isPresent()) {
             throw new ResourceAlreadyExistsException("User with email " + newUser.getEmail() + " is already exists");
         }
         User user = new User(newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
         userService.add(user);
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().build();
     }
 
 }

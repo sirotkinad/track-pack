@@ -1,22 +1,22 @@
 <template>
-  <v-app>
+  <v-app style = "background-color: aliceblue">
     <v-toolbar app dark class="indigo">
       <v-toolbar-title class="headline text-uppercase">
         <span>Track Pack &nbsp;</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-row>
-        <v-col cols="8"></v-col>
+        <v-col cols = "8"></v-col>
         <v-row v-if="isAuthorized === true">
           <UserProfile :user="this.user" @existsInParcelList="this.setExistsInParcelList"
-                       @notAuthorized="this.setNotAuthorized">
+                       @notAuthorized="this.setNotAuthorized" align="center">
           </UserProfile>
         </v-row>
         <v-col v-if="isAuthorized === false" cols="2" align="end">
-          <v-btn color="blue" @click="signInDialog = true">Sign In</v-btn>
+          <v-btn color="blue" @click="signInDialog = true" height="35px" width="85px">Sign In</v-btn>
         </v-col>
-        <v-col v-if="isAuthorized === false" align="end">
-          <v-btn color="blue" @click="signUpDialog = true">Sign Up</v-btn>
+        <v-col v-if="isAuthorized === false">
+          <v-btn color="blue" @click="signUpDialog = true" height="35px" width="85px">Sign Up</v-btn>
         </v-col>
       </v-row>
     </v-toolbar>

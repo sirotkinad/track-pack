@@ -2,10 +2,11 @@
   <v-container>
     <v-card>
       <v-row>
-        <v-col align="center" cols="1">
+        <v-col cols="1" align="center" align-self="center">
           <v-icon color="blue" @click="(event) => refresh(event)"> mdi-refresh</v-icon>
         </v-col>
-        <v-col v-if="isAuthorized === true" cols="7">
+        <v-col v-if="isAuthorized === true" @mouseover="editNameHover = true" @mouseleave="editNameHover = false"
+               cols="5" align-self="center" align="start">
           <span v-if="edit === false">{{ getParcelName() }} {{ this.name }}</span>
           <input v-if="edit === true" v-model.trim="name" style="width:130px"
                  @blur="editName()"
@@ -13,30 +14,30 @@
                  @keyup.escape="edit = false"
                  placeholder="Parcel name">
           , {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
-          <v-icon color="blue" @click="edit = true">mdi-pencil</v-icon>
+          <v-icon v-if="editNameHover" color="blue" @click="edit = true">mdi-pencil</v-icon>
         </v-col>
-        <v-col v-else cols="5" class="black--text" style="font-size:1rem">{{ parcel.trackingCode }},
+        <v-col v-else cols="5" class="black--text" style="font-size:1rem" align-self="center">{{ parcel.trackingCode }},
           {{ parcel.checkPoints[parcel.checkPoints.length - 1].status }}
         </v-col>
         <v-col cols="2">
-          <v-card v-if="hover" style="font-size:0.7rem" @mouseleave="hover = false">
+          <v-card v-if="dateLoadedHover" style="font-size:0.7rem" @mouseleave="dateLoadedHover = false">
             Information was loaded {{ getDateInString(parcel.lastUpdateDate) }}
             {{ getTimeInString(parcel.lastUpdateDate) }}
           </v-card>
-          <v-chip v-if="outdated === true && hover === false"
-                  class="ma-2" color="blue" text-color="white" small @mouseover="hover = true">
+          <v-chip v-if="outdated === true && dateLoadedHover === false"
+                  class="ma-2" color="blue" text-color="white" small @mouseover="dateLoadedHover = true">
             Outdated: {{ getOutdated(parcel.lastUpdateDate) }}
           </v-chip>
         </v-col>
         <v-col cols="2">
           <v-chip class="ma-2" color="blue" text-color="white" small>
-            Est.Del.date: {{ getDateInString(parcel.estimatedDeliveryDate) }}
+            Est. delivery: {{ getDateInString(parcel.estimatedDeliveryDate) }}
           </v-chip>
         </v-col>
-        <v-col>
+        <v-col align-self="center" align="end">
           <v-icon color="blue" @click="addParcelToList()"> mdi-plus</v-icon>
         </v-col>
-        <v-col>
+        <v-col align-self="center" align="center">
           <v-icon color="blue" @click="deleteParcel()"> mdi-delete</v-icon>
         </v-col>
       </v-row>
@@ -44,7 +45,8 @@
         <v-card-text>
           <v-card outlined>
             <v-card-text style="font-size:1rem">
-              <p><b v-if="this.parcelName" class="font-weight-bold"> Tracking code: </b> {{ parcel.trackingCode }}</p>
+              <p><b v-if="parcel.trackingCode" class="font-weight-bold"> Tracking code: </b> {{ parcel.trackingCode }}
+              </p>
               <p><b v-if="parcel.carrier" class="font-weight-bold"> Carrier: </b> {{ parcel.carrier }}</p>
               <p><b v-if="parcel.carrierTrackingUrl" class="font-weight-bold">Carrier's link for tracking: </b>
                 {{ parcel.carrierTrackingUrl }} </p>
@@ -68,7 +70,7 @@
                              color="blue"
                              small>
               <v-row class="pt-1">
-                <v-col cols="3">
+                <v-col cols="2">
                   <strong>{{ getDateInString(checkPoint.date) }} </strong>
                   <div class="grey--text">
                     {{ getTimeInString(checkPoint.date) }}
@@ -107,7 +109,8 @@ export default {
       snackbar: false,
       snackbarMessage: "",
       timeout: 3000,
-      hover: false,
+      dateLoadedHover: false,
+      editNameHover: false,
       outdated: this.setOutdated(this.parcel.lastUpdateDate),
       edit: false,
       name: "",
@@ -124,14 +127,16 @@ export default {
   created() {
     eventBus.$on("existsInList", (value) => {
       this.existsInList = value;
-    })
+    }),
+        eventBus.$on("setMessageAfterUpdate", (message) => {
+          this.snackbar = true;
+          this.snackbarMessage = message;
+        })
   },
   methods: {
     refresh(event) {
       this.$emit('refreshRequest', event);
       this.outdated = false;
-      this.snackbar = true;
-      this.snackbarMessage = "Information is updated";
     },
     deleteParcel() {
       if (this.isAuthorized === true) {
@@ -147,6 +152,9 @@ export default {
         this.snackbarMessage = "Parcel is deleted";
       } else {
         localStorage.removeItem(this.parcel.trackingCode);
+        if(JSON.parse(localStorage.getItem("lastParcel")).trackingCode === this.parcel.trackingCode){
+           localStorage.removeItem("lastParcel");
+        }
         this.snackbar = true;
         this.snackbarMessage = "Parcel is deleted";
       }
@@ -187,14 +195,14 @@ export default {
             .then(() => {
               this.name = this.parcel.trackingCode;
               this.parcelName = this.parcel.trackingCode;
+              eventBus.$emit("addParcelToList", this.parcel);
+              eventBus.$emit("getLastFromParcelList", this.parcel);
+              this.snackbar = true;
+              this.snackbarMessage = "Parcel is added to a tracking list";
             }, () => {
               this.snackbar = true;
               this.snackbarMessage = "Parcel is already in a tracking list";
             })
-        eventBus.$emit("addParcelToList", this.parcel);
-        eventBus.$emit("getLastFromParcelList", this.parcel);
-        this.snackbar = true;
-        this.snackbarMessage = "Parcel is added to a tracking list";
       } else {
         this.snackbar = true;
         this.snackbarMessage = "Please, sign in to add parcel to a tracking list";

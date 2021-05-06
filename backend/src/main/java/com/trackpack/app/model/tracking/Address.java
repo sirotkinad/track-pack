@@ -17,31 +17,31 @@ public class Address {
     @GeneratedValue
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "Street number should not be a null value")
     private String streetNr;
 
     private String streetNrSuffix;
     private String streetNrLast;
     private String streetNrLastSuffix;
 
-    @NotNull
+    @NotNull(message = "Street name should not be a null value")
     private String streetName;
 
     private String streetType;
     private String streetSuffix;
 
-    @NotNull
+    @NotNull(message = "Postcode should not be a null value")
     private String postcode;
 
     private String locality;
 
-    @NotNull
+    @NotNull(message = "City should not be a null value")
     private String city;
 
-    @NotNull
+    @NotNull(message = "State or province should not be a null value")
     private String stateOrProvince;
 
-    @NotNull
+    @NotNull(message = "Country number should not be a null value")
     private String country;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})

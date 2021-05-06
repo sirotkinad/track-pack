@@ -96,16 +96,23 @@ export default {
     },
     validate(event) {
       if (this.$refs.signUpForm.validate()) {
-        this.$http.post("http://localhost:8080/auth/signUp", this.newUser).then(response => {
-              this.newUser = response.data;
+        this.$http.post("http://localhost:8080/auth/signUp", this.newUser).then(() => {
               eventBus.$emit("showSuccessReg", this.successMessage)
               this.openSignInDialog(event);
+              this.cleanFields();
             }, (response) => {
               console.log(response);
               this.failMessage = "User with such email already exists";
             }
         )
       }
+    },
+    cleanFields() {
+      this.newUser.firstName = "";
+      this.newUser.lastName = "";
+      this.newUser.email = "";
+      this.newUser.password = "";
+      this.verifyPassword = "";
     }
   },
   computed: {

@@ -19,23 +19,23 @@ public class CheckPoint {
     @GeneratedValue
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "CheckPoint's status should not be a null value")
     private String status;
 
     private String message;
 
-    @NotNull
+    @NotNull(message = "Date should not be a null value")
     private OffsetDateTime date;
 
-    @NotNull
+    @NotNull(message = "Check post should not be a null value")
     private String checkPost;
 
-    @NotNull
+    @NotNull(message = "CheckPoint's city should not be a null value")
     private String city;
 
     private String stateOrProvince;
 
-    @NotNull
+    @NotNull(message = "CheckPoint's country should not be a null value")
     private String country;
 
     public CheckPoint(String status, OffsetDateTime date, String checkPost) {
