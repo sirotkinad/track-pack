@@ -101,8 +101,8 @@ export default {
           })
     },
     existsInParcelList() {
-      this.$emit("existsInParcelList", this.parcelList.length > 0);
-      return this.parcelList.length > 0;
+        this.$emit("existsInParcelList", this.parcelList.length > 0);
+        return this.parcelList.length > 0;
     },
     logout(email) {
       localStorage.removeItem(email);
@@ -130,7 +130,11 @@ export default {
               parcel.hasName = false;
               eventBus.$emit("setParcelName", parcel.trackingCode);
             }
-          })
+          }, () => {
+        parcel.name = null;
+        parcel.hasName = false;
+        eventBus.$emit("setParcelName", parcel.trackingCode);
+      })
     }
   }
 }

@@ -135,6 +135,9 @@ export default {
         }),
         eventBus.$on("hideNotFound", () => {
           this.notFound = false;
+          if(this.existsInParcelList === false){
+            this.hideParcelInfo = true;
+          }
         })
     eventBus.$on("setParcelName", (parcelName) => {
       this.parcelName = parcelName;

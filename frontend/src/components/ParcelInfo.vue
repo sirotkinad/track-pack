@@ -152,6 +152,9 @@ export default {
         this.snackbarMessage = "Parcel is deleted";
       } else {
         localStorage.removeItem(this.parcel.trackingCode);
+        if(JSON.parse(localStorage.getItem("lastParcel")).trackingCode === this.parcel.trackingCode){
+           localStorage.removeItem("lastParcel");
+        }
         this.snackbar = true;
         this.snackbarMessage = "Parcel is deleted";
       }
@@ -192,14 +195,14 @@ export default {
             .then(() => {
               this.name = this.parcel.trackingCode;
               this.parcelName = this.parcel.trackingCode;
+              eventBus.$emit("addParcelToList", this.parcel);
+              eventBus.$emit("getLastFromParcelList", this.parcel);
+              this.snackbar = true;
+              this.snackbarMessage = "Parcel is added to a tracking list";
             }, () => {
               this.snackbar = true;
               this.snackbarMessage = "Parcel is already in a tracking list";
             })
-        eventBus.$emit("addParcelToList", this.parcel);
-        eventBus.$emit("getLastFromParcelList", this.parcel);
-        this.snackbar = true;
-        this.snackbarMessage = "Parcel is added to a tracking list";
       } else {
         this.snackbar = true;
         this.snackbarMessage = "Please, sign in to add parcel to a tracking list";

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
+import com.trackpack.app.exceptions.ResourceAlreadyExistsException;
 import com.trackpack.app.model.tracking.Address;
 import com.trackpack.app.model.tracking.CheckPoint;
 import com.trackpack.app.model.tracking.ShipmentTracking;
@@ -38,6 +39,9 @@ public class ShipmentTrackingService {
 
     @Transactional
     public void add(ShipmentTracking shipmentTracking) {
+        if(findByTrackingCode(shipmentTracking.getTrackingCode()).isPresent()) {
+            throw new ResourceAlreadyExistsException("Parcel with tracking code " + shipmentTracking.getTrackingCode() + " already exists");
+        }
         repository.save(shipmentTracking);
     }
 
